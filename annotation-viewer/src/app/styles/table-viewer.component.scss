@@ -1,0 +1,10 @@
+div.table-viewer {
+
+    &, table, video, select.tier-names {
+        width: 780px;
+    }
+
+    table th {
+        text-align: left;
+    }
+}

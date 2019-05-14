@@ -1,0 +1,24 @@
+<div class="table-viewer" *ngIf="annotation">
+    <video controls #videoPlayer>
+        <source src="{{ annotation.header.media[0].url }}" type="{{ annotation.header.media[0].type }}">
+    </video>
+    <select class="tier-names" (change)="changeTier($event)">
+        <option *ngFor="let tier of annotation.tiers" [value]="tier.id">{{ tier.id }}</option>
+    </select>
+    <table>
+        <tr>
+            <th>Nr</th>
+            <th>Annotation</th>
+            <th>Begin Time</th>
+            <th>End Time</th>
+            <th>Duration</th>
+        </tr>
+        <tr *ngFor="let item of annotation.getCurrentTier().annotations; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.value }}</td>
+            <td>{{ formatDuration(annotation.getTimeslot(item.slotref1).value) }}</td>
+            <td>{{ formatDuration(annotation.getTimeslot(item.slotref2).value) }}</td>
+            <td>{{ formatDuration(annotation.getDuration(annotation.getTimeslot(item.slotref1), annotation.getTimeslot(item.slotref2))) }}</td>
+        </tr>
+    </table>
+</div>

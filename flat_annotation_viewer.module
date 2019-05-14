@@ -1,0 +1,32 @@
+<?php
+
+function flat_annotation_viewer() {
+
+    module_load_include('inc', 'flat_annotation_viewer', 'includes/Parser');
+    module_load_include('inc', 'flat_annotation_viewer', 'includes/Annotation');
+
+    $parser = new FlatAnnotationParser(__DIR__ . '/annotations/rudi_and_mireille/Rudi_and_Mireille.eaf');
+    $entity = $parser->parse();
+
+    return drupal_json_output($entity);
+}
+
+function flat_annotation_viewer_menu() {
+
+    $items = [];
+
+    $items['islandora/object/%islandora_object/av'] = [
+
+        'title'             => 'FLAT Annotation Viewer',
+        'type'              => MENU_CALLBACK,
+        'page callback'     => 'flat_annotation_viewer',
+        'page arguments'    => [2],
+        'access callback'   => 'flat_annotation_viewer_menu_access',
+    ];
+
+    return $items;
+}
+
+function flat_annotation_viewer_menu_access() {
+    return true;
+}
