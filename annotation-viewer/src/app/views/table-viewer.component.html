@@ -16,9 +16,9 @@
         <tr *ngFor="let item of annotation.getCurrentTier().annotations; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ item.value }}</td>
-            <td>{{ formatDuration(annotation.getTimeslot(item.slotref1).value) }}</td>
-            <td>{{ formatDuration(annotation.getTimeslot(item.slotref2).value) }}</td>
-            <td>{{ formatDuration(annotation.getDuration(annotation.getTimeslot(item.slotref1), annotation.getTimeslot(item.slotref2))) }}</td>
+            <td><span *ngIf="item.slotref1">{{ formatDuration(annotation.getTimeslot(item.slotref1).value) }}</span></td>
+            <td><span *ngIf="item.slotref2">{{ formatDuration(annotation.getTimeslot(item.slotref2).value) }}</span></td>
+            <td><span *ngIf="item.slotref1 && item.slotref2">{{ formatDuration(annotation.getDuration(annotation.getTimeslot(item.slotref1), annotation.getTimeslot(item.slotref2))) }}</span></td>
         </tr>
     </table>
 </div>

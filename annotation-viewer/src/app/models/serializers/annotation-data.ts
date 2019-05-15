@@ -4,7 +4,7 @@ import { AnnotationHeader } from '../annotation/header';
 import { AnnotationMedia } from '../annotation/media';
 import { AnnotationProperty } from '../annotation/property';
 import { AnnotationTimeslot } from '../annotation/timeslot';
-import { Annotation } from '../annotation/annotation';
+import { Annotation } from '../annotation/ref-annotation';
 import { AnnotationTier } from '../annotation/tier';
 
 export function SerializeAnnotationData(data: AnnotationData) {

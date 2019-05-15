@@ -34,6 +34,8 @@ export class AnnotationData {
             }
         });
 
+        console.log(current);
+
         return current;
     }
 

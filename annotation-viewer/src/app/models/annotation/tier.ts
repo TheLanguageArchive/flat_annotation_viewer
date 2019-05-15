@@ -1,4 +1,4 @@
-import { Annotation } from '@fav-models/annotation/annotation';
+import { Annotation } from '@fav/app/models/annotation/ref-annotation';
 
 export class AnnotationTier {
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import TimeFormat from 'hh-mm-ss';
 import { AnnotationService } from '@fav-services/annotation.service';
 import { AnnotationData } from '@fav-models/annotation/data';
@@ -8,7 +8,7 @@ import { AnnotationData } from '@fav-models/annotation/data';
   templateUrl: '../views/table-viewer.component.html',
   styleUrls: ['../styles/table-viewer.component.scss']
 })
-export class TableViewerComponent implements OnInit {
+export class TableViewerComponent implements AfterViewInit {
 
   @ViewChild('videoPlayer') videoPlayer: HTMLVideoElement;
 
@@ -16,13 +16,12 @@ export class TableViewerComponent implements OnInit {
 
   constructor(private annotationService: AnnotationService) { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+
     this.annotationService
       .fetch()
       .subscribe(annotation => {
         this.annotation = annotation;
-        this.videoPlayer.play();
-        console.log(this.videoPlayer.msRealTime);
       });
   }
 

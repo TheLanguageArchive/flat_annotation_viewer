@@ -1,12 +1,16 @@
 <?php
-
+require_once __DIR__ . '/vendor/autoload.php';
 function flat_annotation_viewer() {
 
-    module_load_include('inc', 'flat_annotation_viewer', 'includes/Parser');
-    module_load_include('inc', 'flat_annotation_viewer', 'includes/Annotation');
+    module_load_include('inc', 'flat_annotation_viewer', 'includes/NewParser');
+    module_load_include('inc', 'flat_annotation_viewer', 'includes/FixReferences');
 
-    $parser = new FlatAnnotationParser(__DIR__ . '/annotations/rudi_and_mireille/Rudi_and_Mireille.eaf');
+    $parser = new NewParser(__DIR__ . '/annotations/pear/pear2.eaf');
+    // $parser = new NewParser(__DIR__ . '/annotations/rudi_and_mireille/Rudi_and_Mireille.eaf');
     $entity = $parser->parse();
+
+    $fixer  = new FixReferences($entity);
+    $entity = $fixer->fix();
 
     return drupal_json_output($entity);
 }

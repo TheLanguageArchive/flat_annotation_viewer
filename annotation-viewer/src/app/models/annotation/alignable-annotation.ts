@@ -1,4 +1,4 @@
-export class Annotation {
+export class AlignableAnnotation {
 
     id: string;
     type: string;

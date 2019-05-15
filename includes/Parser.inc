@@ -68,15 +68,14 @@ class FlatAnnotationParser
 
         foreach ($contents->TIME_ORDER->TIME_SLOT as $slot) {
 
-            $attributes  = $slot->attributes();
-            $timeslots[] = [
+            $attributes     = $slot->attributes();
+            $id             = (string)$attributes['TIME_SLOT_ID'];
+            $timeslots[$id] = [
 
-                'id'    => (string)$attributes['TIME_SLOT_ID'],
+                'id'    => $id,
                 'value' => isset($attributes['TIME_VALUE']) ? (int)$attributes['TIME_VALUE'] : null,
             ];
         }
-
-        $entity->setTimeSlots($timeslots);
 
         foreach ($contents->TIER as $tier) {
 
