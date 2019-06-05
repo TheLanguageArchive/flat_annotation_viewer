@@ -23,6 +23,13 @@ export class TableViewerComponent implements AfterViewInit {
       .subscribe(annotation => {
         this.annotation = annotation;
       });
+
+      let t = setInterval(() => {
+        console.log('vp', this.videoPlayer);
+        if (this.videoPlayer) {
+          clearInterval(t);
+        }
+      }, 1000);
   }
 
   formatDuration(time: number) {

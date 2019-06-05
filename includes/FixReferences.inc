@@ -116,7 +116,7 @@ class FixReferences
         if (isset($annotation['ref']) && isset($this->unwound[$annotation['ref']])) {
 
             if (self::ANNOTATION_TYPE_ALIGNABLE === $this->unwound[$annotation['ref']]['type']) {
-                $annotation['ref'] = $this->unwound[$annotation['ref']];
+                $annotation['ref'] = $this->fixAlignableAnnotationReferences($this->unwound[$annotation['ref']]);
             } else {
                 $annotation['ref'] = $this->findAlignableAnnotationRef($this->unwound[$annotation['ref']]);
             }
@@ -138,7 +138,7 @@ class FixReferences
             return $this->findAlignableAnnotationRef($this->unwound[$annotation['ref']]);
         }
 
-        return $annotation;
+        return $this->fixAlignableAnnotationReferences($annotation);
     }
 
     /**
@@ -159,16 +159,5 @@ class FixReferences
         }
 
         return $annotation;
-    }
-
-    /**
-     * Dumping
-     *
-     * @return void
-     */
-    private function d()
-    {
-        call_user_func_array('dump', func_get_args());
-        // echo '<pre>', call_user_func_array('var_dump', func_get_args()) , '</pre>';exit;
     }
 }
