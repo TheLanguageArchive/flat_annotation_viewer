@@ -4,11 +4,53 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "33b04511c18813ef0e208cc5f5cc1401",
+    "content-hash": "d3d4ef7ea9bb1b26ecb47f277e5c646b",
     "packages": [
         {
+            "name": "mpi/eaf-parser",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TheLanguageArchive/EAF-parser.git",
+                "reference": "7600ba44420986df06a39892939c53ffaac3497c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TheLanguageArchive/EAF-parser/zipball/7600ba44420986df06a39892939c53ffaac3497c",
+                "reference": "7600ba44420986df06a39892939c53ffaac3497c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "symfony/var-dumper": "4.4.x-dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MPI\\EAF\\": "src/"
+                }
+            },
+            "license": [
+                "Gnu Public License 2"
+            ],
+            "authors": [
+                {
+                    "name": "Ibrahim Abdullah",
+                    "email": "abdul.ibrahim16@gmail.com"
+                }
+            ],
+            "description": "EAF annotation parser and resolver",
+            "support": {
+                "source": "https://github.com/TheLanguageArchive/EAF-parser/tree/master",
+                "issues": "https://github.com/TheLanguageArchive/EAF-parser/issues"
+            },
+            "time": "2019-07-18T16:02:54+00:00"
+        },
+        {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.11.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
@@ -131,8 +173,10 @@
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "mpi/eaf-parser": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

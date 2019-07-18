@@ -1,7 +1,7 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChildren, AfterViewInit, QueryList } from '@angular/core';
 import TimeFormat from 'hh-mm-ss';
-import { AnnotationService } from '@fav-services/annotation.service';
-import { AnnotationData } from '@fav-models/annotation/data';
+import { EafService } from '@fav-services/eaf.service';
+import { Eaf } from '@fav-models/eaf';
 
 @Component({
   selector: 'app-table-viewer',
@@ -10,33 +10,41 @@ import { AnnotationData } from '@fav-models/annotation/data';
 })
 export class TableViewerComponent implements AfterViewInit {
 
-  @ViewChild('videoPlayer') videoPlayer: HTMLVideoElement;
+  @ViewChildren('videoPlayer') videoPlayer: QueryList<HTMLVideoElement>;
 
-  public annotation: AnnotationData;
+  public eaf: Eaf;
 
-  constructor(private annotationService: AnnotationService) { }
+  constructor(private eafService: EafService) { }
 
   ngAfterViewInit() {
 
-    this.annotationService
+    this.eafService
       .fetch()
-      .subscribe(annotation => {
-        this.annotation = annotation;
+      .subscribe(eaf => {
+        this.eaf = eaf;
+
+        // for (let annotation of eaf.getCurrentTier().annotations) {
+        //   console.log(annotation);
+        // }
       });
 
-      let t = setInterval(() => {
-        console.log('vp', this.videoPlayer);
-        if (this.videoPlayer) {
-          clearInterval(t);
-        }
-      }, 1000);
+      // let t = setInterval(() => {
+      //   console.log('vp', this.videoPlayer);
+      //   if (this.videoPlayer) {
+      //     clearInterval(t);
+      //   }
+      // }, 1000);
   }
 
-  formatDuration(time: number) {
-    return TimeFormat.fromMs(time, 'hh:mm:ss');
+  debug(data: any) {
+      console.debug(data);
+  }
+
+  formatDuration(duration: number) {
+    return TimeFormat.fromMs(duration, 'hh:mm:ss.sss');
   }
 
   changeTier(event: Event) {
-    this.annotation.setCurrentTier((event.target as HTMLInputElement).value);
+    this.eaf.setCurrentTier((event.target as HTMLInputElement).value);
   }
 }

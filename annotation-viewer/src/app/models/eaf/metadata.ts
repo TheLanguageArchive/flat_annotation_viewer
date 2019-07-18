@@ -1,4 +1,4 @@
-export class AnnotationMetadata {
+export class EafMetadata {
 
     author: string;
     date: number;

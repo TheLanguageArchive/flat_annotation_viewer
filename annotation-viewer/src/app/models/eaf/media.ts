@@ -1,4 +1,4 @@
-export class AnnotationMedia {
+export class EafMedia {
 
     url: string;
     type: string;

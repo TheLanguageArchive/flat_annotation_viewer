@@ -1,4 +1,4 @@
-export class AnnotationProperty {
+export class EafProperty {
 
     name: string;
     value: string;
