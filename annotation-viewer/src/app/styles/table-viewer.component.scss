@@ -12,6 +12,10 @@ div.table-viewer {
             text-align: left;
         }
 
+        tr.annotation {
+            cursor: pointer;
+        }
+
         tr.active {
             background-color: red;
             color: white;

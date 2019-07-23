@@ -50,6 +50,20 @@ export class VideoComponent implements AfterViewInit {
     }
   }
 
+  setPlayTime(time: number) {
+
+    // we use miliseconds but video player uses seconds
+    // convert and set time
+    this.videoPlayer.nativeElement.currentTime = (time / 1000);
+  }
+
+  getPlayTime() {
+
+    // getting current playtime is in seconds
+    // converting to miliseconds
+    return this.videoPlayer.nativeElement.currentTime * 1000;
+  }
+
   ngDestroy() {
 
     if (this.playListener) {
