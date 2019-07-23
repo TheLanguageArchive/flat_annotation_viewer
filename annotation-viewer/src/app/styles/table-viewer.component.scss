@@ -1,10 +1,20 @@
 div.table-viewer {
 
-    &, table, video, select.tier-names {
+    &, table, select.tier-names {
         width: 780px;
     }
 
-    table th {
-        text-align: left;
+    table {
+
+        border-spacing: 0;
+
+        th {
+            text-align: left;
+        }
+
+        tr.active {
+            background-color: red;
+            color: white;
+        }
     }
 }

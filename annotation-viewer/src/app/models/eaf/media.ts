@@ -1,13 +1,13 @@
 export class EafMedia {
 
     url: string;
-    type: string;
+    mimetype: string;
     relative: string;
 
-    constructor(url: string, type: string, relative: string) {
+    constructor(url: string, mimetype: string, relative: string) {
 
         this.url      = url;
-        this.type     = type;
+        this.mimetype = mimetype;
         this.relative = relative;
     }
 }

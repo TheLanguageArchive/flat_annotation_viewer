@@ -1,7 +1,5 @@
 <div class="table-viewer" *ngIf="eaf">
-    <video controls #videoPlayer>
-        <source src="{{ eaf.header.media[0].url }}" type="{{ eaf.header.media[0].type }}">
-    </video>
+    <app-video url="{{ eaf.header.media[0].url }}" mimetype="{{ eaf.header.media[0].mimetype }}" (progress)="progressTracker($event)"></app-video>
     <select class="tier-names" (change)="changeTier($event)">
         <option *ngFor="let tier of eaf.tiers" [value]="tier.id">{{ tier.id }}</option>
     </select>
@@ -13,7 +11,7 @@
             <th>End Time</th>
             <th>Duration</th>
         </tr>
-        <tr *ngFor="let annotation of eaf.getCurrentTier().annotations; let i = index">
+        <tr *ngFor="let annotation of eaf.getCurrentTier().annotations; let i = index" [ngClass]="{'active': activeIds.indexOf(annotation.id) > -1 }">
             <td>{{ i + 1 }}</td>
             <td>{{ annotation.value }}</td>
             <ng-template [ngIf]="annotation.type === 'alignable'">

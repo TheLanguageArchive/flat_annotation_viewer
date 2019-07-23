@@ -12,7 +12,7 @@ export function SerializeEaf(eaf: Eaf) {
 
     let media = [];
     for (let item of eaf.header.media) {
-        media.push(new EafMedia(item.url, item.type, item.relative));
+        media.push(new EafMedia(item.url, item.mimetype, item.relative));
     }
 
     let properties = [];

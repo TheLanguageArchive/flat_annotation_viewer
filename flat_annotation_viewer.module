@@ -2,7 +2,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 function flat_annotation_viewer() {
 
-    $parser = new MPI\EAF\Parser(__DIR__ . '/annotations/pear/pear3.eaf');
+    $parser = new MPI\EAF\Parser(__DIR__ . '/annotations/pear/pear2.eaf');
     $eaf    = $parser->parse();
 
     return drupal_json_output($eaf);
