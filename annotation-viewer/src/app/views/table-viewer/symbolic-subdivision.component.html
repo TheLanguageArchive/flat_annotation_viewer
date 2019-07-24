@@ -1,0 +1,5 @@
+<ng-template [ngIf]="annotation.type === 'ref' && annotation.ref !== null">
+  <td><span *ngIf="annotation.custom_start">{{ formatDuration(annotation.custom_start.time) }}</span></td>
+  <td><span *ngIf="annotation.custom_end">{{ formatDuration(annotation.custom_end.time) }}</span></td>
+  <td><span *ngIf="annotation.custom_start && annotation.custom_end">{{ formatDuration(eaf.getDuration(annotation.custom_start, annotation.custom_end)) }}</span></td>
+</ng-template>

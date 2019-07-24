@@ -59,10 +59,18 @@ export class TableViewerComponent implements OnInit {
         }
       }
 
-      if (annotation.type === 'alignable') {
+      if (annotation.type === 'alignable' && annotation.custom_start == null) {
 
-        // alignable annotation always has a start and end
+        // alignable annotation without custom time
         if (currentTime >= annotation.start.time && currentTime <= annotation.end.time) {
+          activeIds.push(annotation.id);
+        }
+      }
+
+      if (annotation.type === 'alignable' && annotation.custom_start != null) {
+
+        // alignable annotation with custom time
+        if (currentTime >= annotation.custom_start.time && currentTime <= annotation.custom_end.time) {
           activeIds.push(annotation.id);
         }
       }

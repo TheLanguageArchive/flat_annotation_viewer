@@ -12,16 +12,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/TheLanguageArchive/EAF-parser.git",
-                "reference": "7600ba44420986df06a39892939c53ffaac3497c"
+                "reference": "d7bb146a5004ca840eb72183ac22d820e5eb395c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TheLanguageArchive/EAF-parser/zipball/7600ba44420986df06a39892939c53ffaac3497c",
-                "reference": "7600ba44420986df06a39892939c53ffaac3497c",
+                "url": "https://api.github.com/repos/TheLanguageArchive/EAF-parser/zipball/d7bb146a5004ca840eb72183ac22d820e5eb395c",
+                "reference": "d7bb146a5004ca840eb72183ac22d820e5eb395c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1.0"
+                "php": ">=7.1.0",
+                "php-ds/php-ds": "dev-master"
             },
             "require-dev": {
                 "symfony/var-dumper": "4.4.x-dev"
@@ -46,7 +47,54 @@
                 "source": "https://github.com/TheLanguageArchive/EAF-parser/tree/master",
                 "issues": "https://github.com/TheLanguageArchive/EAF-parser/issues"
             },
-            "time": "2019-07-18T16:02:54+00:00"
+            "time": "2019-07-23T15:53:54+00:00"
+        },
+        {
+            "name": "php-ds/php-ds",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-ds/polyfill.git",
+                "reference": "5af86a08d5a37239092a6f6066aafa00bdf37ea0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-ds/polyfill/zipball/5af86a08d5a37239092a6f6066aafa00bdf37ea0",
+                "reference": "5af86a08d5a37239092a6f6066aafa00bdf37ea0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "php-ds/tests": "^1.2"
+            },
+            "suggest": {
+                "ext-ds": "to improve performance and reduce memory usage"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ds\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rudi Theunissen",
+                    "email": "rudolf.theunissen@gmail.com"
+                }
+            ],
+            "keywords": [
+                "data structures",
+                "ds",
+                "php",
+                "polyfill"
+            ],
+            "time": "2019-05-28T19:52:55+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",

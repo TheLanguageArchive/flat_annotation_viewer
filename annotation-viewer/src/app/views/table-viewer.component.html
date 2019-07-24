@@ -14,21 +14,23 @@
         <tr class="annotation" *ngFor="let annotation of eaf.getCurrentTier().annotations; let i = index" [ngClass]="{'active': activeIds.indexOf(annotation.id) > -1 }" (click)="activateAnnotation(annotation.id)">
             <td>{{ i + 1 }}</td>
             <td>{{ annotation.value }}</td>
-            <ng-template [ngIf]="annotation.type === 'alignable'">
-                <td><span *ngIf="annotation.start">{{ formatDuration(annotation.start.time) }}</span></td>
-                <td><span *ngIf="annotation.end">{{ formatDuration(annotation.end.time) }}</span></td>
-                <td><span *ngIf="annotation.start && annotation.end">{{ formatDuration(eaf.getDuration(annotation.start, annotation.end)) }}</span></td>
+            <ng-template [ngIf]="eaf.getCurrentTier().linguistic_type === 'Symbolic_Subdivision'">
+                <symbolic-subdivision annotation="{{ annotation }}"></symbolic-subdivision>
             </ng-template>
-            <ng-template [ngIf]="eaf.getCurrentTier().linguistic_type === 'Symbolic_Subdivision' && annotation.type === 'ref' && annotation.ref !== null">
-                <td><span *ngIf="annotation.custom_start">{{ formatDuration(annotation.custom_start.time) }}</span></td>
-                <td><span *ngIf="annotation.custom_end">{{ formatDuration(annotation.custom_end.time) }}</span></td>
-                <td><span *ngIf="annotation.custom_start && annotation.custom_end">{{ formatDuration(eaf.getDuration(annotation.custom_start, annotation.custom_end)) }}</span></td>
+            <ng-template [ngIf]="eaf.getCurrentTier().linguistic_type === 'Time_Subdivision'">
+                <time-subdivision annotation="{{ annotation }}"></time-subdivision>
             </ng-template>
             <ng-template [ngIf]="eaf.getCurrentTier().linguistic_type !== 'Symbolic_Subdivision' && annotation.type === 'ref' && annotation.ref !== null">
                 <td><span *ngIf="annotation.referenced_annotation.start">{{ formatDuration(annotation.referenced_annotation.start.time) }}</span></td>
                 <td><span *ngIf="annotation.referenced_annotation.end">{{ formatDuration(annotation.referenced_annotation.end.time) }}</span></td>
                 <td><span *ngIf="annotation.referenced_annotation.start && annotation.referenced_annotation.end">{{ formatDuration(eaf.getDuration(annotation.referenced_annotation.start, annotation.referenced_annotation.end)) }}</span></td>
             </ng-template>
+            <ng-template [ngIf]="annotation.type === 'alignable'">
+                <td><span *ngIf="annotation.start">{{ formatDuration(annotation.start.time) }}</span></td>
+                <td><span *ngIf="annotation.end">{{ formatDuration(annotation.end.time) }}</span></td>
+                <td><span *ngIf="annotation.start && annotation.end">{{ formatDuration(eaf.getDuration(annotation.start, annotation.end)) }}</span></td>
+            </ng-template>
+
         </tr>
     </table>
 </div>
