@@ -15,22 +15,14 @@
             <td>{{ i + 1 }}</td>
             <td>{{ annotation.value }}</td>
             <ng-template [ngIf]="eaf.getCurrentTier().linguistic_type === 'Symbolic_Subdivision'">
-                <symbolic-subdivision annotation="{{ annotation }}"></symbolic-subdivision>
+                <app-symbolic-subdivision annotation="{{ annotation }}"></app-symbolic-subdivision>
             </ng-template>
             <ng-template [ngIf]="eaf.getCurrentTier().linguistic_type === 'Time_Subdivision'">
-                <time-subdivision annotation="{{ annotation }}"></time-subdivision>
+                <app-time-subdivision annotation="{{ annotation }}"></app-time-subdivision>
             </ng-template>
-            <ng-template [ngIf]="eaf.getCurrentTier().linguistic_type !== 'Symbolic_Subdivision' && annotation.type === 'ref' && annotation.ref !== null">
-                <td><span *ngIf="annotation.referenced_annotation.start">{{ formatDuration(annotation.referenced_annotation.start.time) }}</span></td>
-                <td><span *ngIf="annotation.referenced_annotation.end">{{ formatDuration(annotation.referenced_annotation.end.time) }}</span></td>
-                <td><span *ngIf="annotation.referenced_annotation.start && annotation.referenced_annotation.end">{{ formatDuration(eaf.getDuration(annotation.referenced_annotation.start, annotation.referenced_annotation.end)) }}</span></td>
+            <ng-template [ngIf]="eaf.getCurrentTier().linguistic_type === 'toplevel'">
+                <app-toplevel annotation="{{ annotation }}"></app-toplevel>
             </ng-template>
-            <ng-template [ngIf]="annotation.type === 'alignable'">
-                <td><span *ngIf="annotation.start">{{ formatDuration(annotation.start.time) }}</span></td>
-                <td><span *ngIf="annotation.end">{{ formatDuration(annotation.end.time) }}</span></td>
-                <td><span *ngIf="annotation.start && annotation.end">{{ formatDuration(eaf.getDuration(annotation.start, annotation.end)) }}</span></td>
-            </ng-template>
-
         </tr>
     </table>
 </div>

@@ -133,4 +133,10 @@ export class TableViewerComponent implements OnInit {
     this.eaf.setCurrentTier((event.target as HTMLInputElement).value);
     this.progressTracker(this.videoPlayer.getPlayTime());
   }
+
+  debug() {
+    Array.from(arguments).forEach(argument => {
+      console.log(argument);
+    });
+  }
 }

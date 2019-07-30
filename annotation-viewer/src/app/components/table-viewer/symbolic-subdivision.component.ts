@@ -12,7 +12,8 @@ export class SymbolicSubdivisionComponent implements OnInit {
 
   @Input() annotation: EafRefAnnotation | EafAlignableAnnotation;
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   /**
    * Formatting duration of an annotation
@@ -21,5 +22,12 @@ export class SymbolicSubdivisionComponent implements OnInit {
    */
   formatDuration(duration: number) {
     return TimeFormat.fromMs(duration, 'hh:mm:ss.sss');
+  }
+
+  debug() {
+    console.log(arguments);
+    // Array.from(arguments).forEach(argument => {
+    //   console.log(argument);
+    // });
   }
 }

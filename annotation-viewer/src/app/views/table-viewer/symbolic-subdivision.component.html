@@ -1,5 +1,11 @@
-<ng-template [ngIf]="annotation.type === 'ref' && annotation.ref !== null">
-  <td><span *ngIf="annotation.custom_start">{{ formatDuration(annotation.custom_start.time) }}</span></td>
-  <td><span *ngIf="annotation.custom_end">{{ formatDuration(annotation.custom_end.time) }}</span></td>
-  <td><span *ngIf="annotation.custom_start && annotation.custom_end">{{ formatDuration(eaf.getDuration(annotation.custom_start, annotation.custom_end)) }}</span></td>
+<span>{{ debug(annotation) }}</span>
+<ng-template [ngIf]="annotation.type === 'ref'">
+  <td>s1<ng-template [ngIf]="annotation.custom_start">{{ formatDuration(annotation.custom_start.time) }}</ng-template></td>
+  <td>s1<ng-template [ngIf]="annotation.custom_end">{{ formatDuration(annotation.custom_end.time) }}</ng-template></td>
+  <td>s1<ng-template [ngIf]="annotation.custom_start && annotation.custom_end">{{ formatDuration(eaf.getDuration(annotation.custom_start, annotation.custom_end)) }}</ng-template></td>
+</ng-template>
+<ng-template [ngIf]="annotation.type === 'alignable'">
+  <td>s2<ng-template [ngIf]="annotation.start">{{ formatDuration(annotation.start.time) }}</ng-template></td>
+  <td>s2<ng-template [ngIf]="annotation.end">{{ formatDuration(annotation.end.time) }}</ng-template></td>
+  <td>s2<ng-template [ngIf]="annotation.start && annotation.end">{{ formatDuration(eaf.getDuration(annotation.start, annotation.end)) }}</ng-template></td>
 </ng-template>
