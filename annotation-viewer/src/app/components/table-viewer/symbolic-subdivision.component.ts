@@ -25,9 +25,8 @@ export class SymbolicSubdivisionComponent implements OnInit {
   }
 
   debug() {
-    console.log(arguments);
-    // Array.from(arguments).forEach(argument => {
-    //   console.log(argument);
-    // });
+    Array.from(arguments).forEach(argument => {
+      console.log(argument);
+    });
   }
 }

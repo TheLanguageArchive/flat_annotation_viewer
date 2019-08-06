@@ -7,7 +7,7 @@ import { Component, EventEmitter, AfterViewInit, ViewChild, Input, Output, Eleme
 })
 export class VideoComponent implements AfterViewInit {
 
-  @ViewChild('videoPlayer') videoPlayer: ElementRef;
+  @ViewChild('videoPlayer', { static: true }) videoPlayer: ElementRef;
   @Input() url: string;
   @Input() mimetype: string;
   @Output() progress: EventEmitter<number> = new EventEmitter<number>();

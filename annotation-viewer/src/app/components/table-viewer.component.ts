@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import TimeFormat from 'hh-mm-ss';
-import { EafService } from '@fav-services/eaf.service';
-import { Eaf } from '@fav-models/eaf';
+import { EafStoreService } from '@fav-services/eaf-store.service';
 import { VideoComponent } from '@fav-components/video.component';
+import { Eaf } from '../models/eaf';
 
 @Component({
   selector: 'app-table-viewer',
@@ -12,23 +12,16 @@ import { VideoComponent } from '@fav-components/video.component';
 export class TableViewerComponent implements OnInit {
 
   public activeIds: string[];
-  public eaf: Eaf;
-  @ViewChild('videoPlayer') videoPlayer: VideoComponent;
 
-  constructor(private eafService: EafService) { }
+  @ViewChild('videoPlayer', { static: false }) videoPlayer: VideoComponent;
+
+  constructor(private eafStoreService: EafStoreService) {}
 
   /**
-   * Fetching the annotations from the EAF Service
+   * NG On Init
    */
   ngOnInit() {
-
-    this.eafService
-      .fetch()
-      .subscribe(eaf => {
-
-        this.eaf       = eaf;
-        this.activeIds = [eaf.getCurrentTier().annotations[0].id];
-      });
+    this.eafStoreService.fetchData();
   }
 
   /**
@@ -40,7 +33,7 @@ export class TableViewerComponent implements OnInit {
   progressTracker(currentTime: number) {
 
     let activeIds = [];
-    for (let annotation of this.eaf.getCurrentTier().annotations) {
+    for (let annotation of this.eafStoreService.getCurrentAnnotations()) {
 
       if (annotation.type === 'ref' && annotation.custom_start != null) {
 
@@ -76,7 +69,7 @@ export class TableViewerComponent implements OnInit {
       }
     }
 
-    this.activeIds = activeIds;
+    this.eafStoreService.setActiveIds(activeIds);
   }
 
   /**
@@ -88,8 +81,9 @@ export class TableViewerComponent implements OnInit {
   activateAnnotation(annotationId: string) {
 
     this.activeIds = [annotationId];
+    this.eafStoreService.setActiveIds(this.activeIds);
 
-    for (let annotation of this.eaf.getCurrentTier().annotations) {
+    for (let annotation of this.eafStoreService.getCurrentAnnotations()) {
 
       if (annotation.id === annotationId) {
 
@@ -130,7 +124,7 @@ export class TableViewerComponent implements OnInit {
    */
   changeTier(event: Event) {
 
-    this.eaf.setCurrentTier((event.target as HTMLInputElement).value);
+    this.eafStoreService.setCurrentTier((event.target as HTMLInputElement).value);
     this.progressTracker(this.videoPlayer.getPlayTime());
   }
 
