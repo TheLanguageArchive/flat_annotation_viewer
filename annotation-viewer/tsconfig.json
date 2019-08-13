@@ -21,6 +21,7 @@
         "@fav-components/*": ["app/components/*"],
         "@fav-models/*": ["app/models/*"],
         "@fav-services/*": ["app/services/*"],
+        "@fav-stores/*": ["app/stores/*"],
         "@fav-specs/*": ["app/specs/*"],
         "@fav-styles/*": ["app/styles/*"],
         "@fav-views/*": ["app/views/*"],

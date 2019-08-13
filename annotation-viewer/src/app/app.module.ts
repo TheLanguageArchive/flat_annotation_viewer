@@ -11,6 +11,7 @@ import { VideoComponent } from '@fav-components/video.component';
 import { ToplevelComponent } from '@fav-components/table-viewer/toplevel.component';
 import { SymbolicSubdivisionComponent } from '@fav-components/table-viewer/symbolic-subdivision.component';
 import { TimeSubdivisionComponent } from '@fav-components/table-viewer/time-subdivision.component';
+import { EafStore } from './stores/eaf-store';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { TimeSubdivisionComponent } from '@fav-components/table-viewer/time-subd
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [EafStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

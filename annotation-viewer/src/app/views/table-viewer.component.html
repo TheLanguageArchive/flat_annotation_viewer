@@ -1,28 +1,26 @@
-<div class="table-viewer" *ngIf="eaf">
-    <app-video #videoPlayer url="{{ eaf.header.media[0].url }}" mimetype="{{ eaf.header.media[0].mimetype }}" (progress)="progressTracker($event)"></app-video>
-    <select class="tier-names" (change)="changeTier($event)">
-        <option *ngFor="let tier of eaf.tiers" [value]="tier.id">{{ tier.id }}</option>
-    </select>
-    <table>
-        <tr>
-            <th>Nr</th>
-            <th>Annotation</th>
-            <th>Begin Time</th>
-            <th>End Time</th>
-            <th>Duration</th>
-        </tr>
-        <tr class="annotation" *ngFor="let annotation of eafStoreService.getCurrentAnnotations(); let i = index" [ngClass]="{'active': activeIds.indexOf(annotation.id) > -1 }" (click)="activateAnnotation(annotation.id)">
-            <td>{{ i + 1 }}</td>
-            <td>{{ annotation.value }}</td>
-            <ng-template [ngIf]="eaf.getCurrentTier().linguistic_type === 'Symbolic_Subdivision'">
-                <app-symbolic-subdivision annotation="{{ annotation }}"></app-symbolic-subdivision>
-            </ng-template>
-            <ng-template [ngIf]="eaf.getCurrentTier().linguistic_type === 'Time_Subdivision'">
-                <app-time-subdivision annotation="{{ annotation }}"></app-time-subdivision>
-            </ng-template>
-            <ng-template [ngIf]="eaf.getCurrentTier().linguistic_type === 'toplevel'">
-                <app-toplevel annotation="{{ annotation }}"></app-toplevel>
-            </ng-template>
-        </tr>
-    </table>
+<div *ngIf="(eafStore.state$ | async).tier">
+    <app-video #videoPlayer url="{{ (eafStore.state$ | async).eaf.header.media[0].url }}" mimetype="{{ (eafStore.state$ | async).eaf.header.media[0].mimetype }}" (progress)="progressTracker($event)"></app-video>
+    <div>
+        <select class="tier-names" (change)="changeTier($event)">
+            <option *ngFor="let iter of ((eafStore.state$ | async).eaf.tiers) | keyvalue: tierOrder" [value]="iter.value.value.id">{{ iter.value.value.id }}</option>
+        </select>
+    </div>
+    <div class="table-viewer">
+        <div>Nr</div>
+        <div>Annotation</div>
+        <div>Begin Time</div>
+        <div>End Time</div>
+        <div>Duration</div>
+    </div>
+    <div *ngFor="let iter of ((eafStore.state$ | async).tier.annotations) | keyvalue: annotationOrder; let i = index" (click)="activateAnnotation(iter.value.value.id)">
+        <ng-template [ngIf]="(eafStore.state$ | async).tier.linguistic_type === 'toplevel'">
+            <app-toplevel row="{{ i + 1 }}" id="{{ iter.value.value.id }}"></app-toplevel>
+        </ng-template>
+        <ng-template [ngIf]="(eafStore.state$ | async).tier.linguistic_type === 'Symbolic_Subdivision'">
+            <app-symbolic-subdivision row="{{ i + 1 }}" id="{{ iter.value.value.id }}"></app-symbolic-subdivision>
+        </ng-template>
+        <ng-template [ngIf]="(eafStore.state$ | async).tier.linguistic_type === 'Time_Subdivision'">
+            <app-time-subdivision row="{{ i + 1 }}" id="{{ iter.value.value.id }}"></app-time-subdivision>
+        </ng-template>
+    </div>
 </div>

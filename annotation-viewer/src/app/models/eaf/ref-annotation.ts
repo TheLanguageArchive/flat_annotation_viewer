@@ -1,6 +1,5 @@
 import { EafAlignableAnnotation } from '@fav-models/eaf/alignable-annotation';
 import { EafTimeslot } from '@fav-models/eaf/timeslot';
-import { NullTemplateVisitor } from '@angular/compiler';
 
 export class EafRefAnnotation {
 

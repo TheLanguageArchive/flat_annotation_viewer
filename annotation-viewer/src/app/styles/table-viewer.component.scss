@@ -1,24 +1,3 @@
-div.table-viewer {
-
-    &, table, select.tier-names {
-        width: 780px;
-    }
-
-    table {
-
-        border-spacing: 0;
-
-        th {
-            text-align: left;
-        }
-
-        tr.annotation {
-            cursor: pointer;
-        }
-
-        tr.active {
-            background-color: red;
-            color: white;
-        }
-    }
+.tier-names {
+    width: 780px;
 }

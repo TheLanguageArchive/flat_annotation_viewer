@@ -1,3 +1,4 @@
+import { OrderedMap } from '@fav-models/ordered-map';
 import { Eaf } from '@fav-models/eaf';
 import { EafMetadata } from '@fav-models/eaf/metadata';
 import { EafHeader } from '@fav-models/eaf/header';
@@ -23,31 +24,41 @@ export function SerializeEaf(eaf: Eaf) {
     let metadata  = new EafMetadata(eaf.metadata.author, eaf.metadata.date, eaf.metadata.format, eaf.metadata.version);
     let header    = new EafHeader(eaf.header.mediafile, eaf.header.timeunits, media, properties);
 
-    let timeslots = [];
-    for (let item of eaf.timeslots) {
-        timeslots.push(new EafTimeslot(item.id, item.time));
+    let timeslots = new OrderedMap<string, EafTimeslot>();
+    for (let id in eaf.timeslots) {
+
+        let item = eaf.timeslots[id];
+        timeslots.set(item.id, new EafTimeslot(item.id, item.time));
     }
 
-    let tiers = [];
-    for (let item of eaf.tiers) {
+    let tiers           = new OrderedMap<string, EafTier>();
+    let all_annotations = new OrderedMap<string, EafRefAnnotation | EafAlignableAnnotation>();
 
-        let annotations = [];
-        for (let annotation of item.annotations) {
+    for (let id in eaf.tiers) {
+
+        let item        = eaf.tiers[id];
+        let annotations = new OrderedMap<string, EafRefAnnotation | EafAlignableAnnotation>();
+
+        for (let id in item.annotations) {
+
+            let annotation = item.annotations[id];
 
             if (annotation.type === 'alignable') {
 
                 annotation = (annotation as EafAlignableAnnotation);
-                annotations.push(new EafAlignableAnnotation(annotation.id, annotation.type, annotation.value, annotation.start, annotation.end));
+                annotations.set(annotation.id, new EafAlignableAnnotation(annotation.id, annotation.type, annotation.value, annotation.start, annotation.end, annotation.custom_start, annotation.custom_end));
 
             } else {
 
                 annotation = (annotation as EafRefAnnotation);
-                annotations.push(new EafRefAnnotation(annotation.id, annotation.type, annotation.value, annotation.ref, annotation.referenced_annotation, annotation.previous, annotation.previous_annotation, annotation.custom_start, annotation.custom_end));
+                annotations.set(annotation.id, new EafRefAnnotation(annotation.id, annotation.type, annotation.value, annotation.ref, annotation.referenced_annotation, annotation.previous, annotation.previous_annotation, annotation.custom_start, annotation.custom_end));
             }
+
+            all_annotations.set(annotation.id, annotation);
         }
 
-        tiers.push(new EafTier(item.id, item.locale, annotations, item.linguistic_type));
+        tiers.set(item.id, new EafTier(item.id, item.locale, annotations, item.linguistic_type));
     }
 
-    return new Eaf(metadata, header, timeslots, tiers);
+    return new Eaf(metadata, header, timeslots, tiers, all_annotations);
 }
