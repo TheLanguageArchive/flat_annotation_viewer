@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import TimeFormat from 'hh-mm-ss';
 import { VideoComponent } from '@fav-components/video.component';
 import { EafStore } from '@fav-stores/eaf-store';
@@ -23,9 +23,6 @@ export class TableViewerComponent implements OnInit {
    * NG On Init
    */
   ngOnInit() {
-    // this.eafStore.state$.subscribe(state => {
-
-    // });
   }
 
   /**
@@ -37,18 +34,11 @@ export class TableViewerComponent implements OnInit {
   progressTracker(currentTime: number) {
 
     let activeIds = [];
-    this.eafStore.state.tier.annotations.forEach(annotation => {
+    this.eafStore.state.tier.annotations.forEach(item => {
+
+      let annotation = item.value;
 
       if (annotation.type === 'ref') {
-
-        annotation = annotation as EafRefAnnotation;
-        if (annotation.custom_start != null) {
-
-          // ref annotation with custom start/end times
-          if (currentTime >= annotation.custom_start.time && currentTime <= annotation.custom_end.time) {
-            activeIds.push(annotation.id);
-          }
-        }
 
         if (annotation.custom_start == null) {
 
@@ -58,11 +48,18 @@ export class TableViewerComponent implements OnInit {
             activeIds.push(annotation.id);
           }
         }
+
+        if (annotation.custom_start != null) {
+
+          // ref annotation with custom start/end times
+          if (currentTime >= annotation.custom_start.time && currentTime <= annotation.custom_end.time) {
+            activeIds.push(annotation.id);
+          }
+        }
       }
 
       if (annotation.type === 'alignable') {
 
-        annotation = annotation as EafAlignableAnnotation;
         if (annotation.custom_start == null) {
 
           // alignable annotation without custom time
@@ -127,15 +124,6 @@ export class TableViewerComponent implements OnInit {
   }
 
   /**
-   * Formatting duration of an annotation
-   *
-   * @param duration
-   */
-  formatDuration(duration: number) {
-    return TimeFormat.fromMs(duration, 'hh:mm:ss.sss');
-  }
-
-  /**
    * Changing tier and loading its annotation in the table
    * and activating the appropriate annotations at the current
    * video player time.
@@ -143,6 +131,7 @@ export class TableViewerComponent implements OnInit {
    * @param event
    */
   changeTier(event: Event) {
+
     this.eafStore.setTier((event.target as HTMLInputElement).value);
     this.progressTracker(this.videoPlayer.getPlayTime());
   }
@@ -153,11 +142,5 @@ export class TableViewerComponent implements OnInit {
 
   annotationOrder(a: KeyValue<string, OrderedValue<EafAlignableAnnotation | EafRefAnnotation>>, b: KeyValue<string, OrderedValue<EafAlignableAnnotation | EafRefAnnotation>>): number {
     return b.value.rank > a.value.rank ? -1 : (a.value.rank > b.value.rank ? 1 : 0);
-  }
-
-  debug() {
-    Array.from(arguments).forEach(argument => {
-      console.log(argument);
-    });
   }
 }
