@@ -11,7 +11,9 @@ import { VideoComponent } from '@fav-components/video.component';
 import { ToplevelComponent } from '@fav-components/table-viewer/toplevel.component';
 import { SymbolicSubdivisionComponent } from '@fav-components/table-viewer/symbolic-subdivision.component';
 import { TimeSubdivisionComponent } from '@fav-components/table-viewer/time-subdivision.component';
-import { EafStore } from './stores/eaf-store';
+import { SymbolicAssociationComponent } from '@fav-components/table-viewer/symbolic-association.component';
+import { IncludedInComponent } from '@fav-components/table-viewer/included-in.component';
+import { EafStore } from '@fav-stores/eaf-store';
 
 @NgModule({
   declarations: [
@@ -19,9 +21,11 @@ import { EafStore } from './stores/eaf-store';
     TableViewerComponent,
     MessagesComponent,
     VideoComponent,
+    ToplevelComponent,
     SymbolicSubdivisionComponent,
+    SymbolicAssociationComponent,
     TimeSubdivisionComponent,
-    ToplevelComponent
+    IncludedInComponent
   ],
   imports: [
     BrowserModule,

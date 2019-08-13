@@ -19,8 +19,14 @@
         <ng-template [ngIf]="(eafStore.state$ | async).tier.linguistic_type === 'Symbolic_Subdivision'">
             <app-symbolic-subdivision row="{{ i + 1 }}" id="{{ iter.value.value.id }}"></app-symbolic-subdivision>
         </ng-template>
+        <ng-template [ngIf]="(eafStore.state$ | async).tier.linguistic_type === 'Symbolic_Association'">
+            <app-symbolic-association row="{{ i + 1 }}" id="{{ iter.value.value.id }}"></app-symbolic-association>
+        </ng-template>
         <ng-template [ngIf]="(eafStore.state$ | async).tier.linguistic_type === 'Time_Subdivision'">
             <app-time-subdivision row="{{ i + 1 }}" id="{{ iter.value.value.id }}"></app-time-subdivision>
+        </ng-template>
+        <ng-template [ngIf]="(eafStore.state$ | async).tier.linguistic_type === 'Included_In'">
+            <app-included-in row="{{ i + 1 }}" id="{{ iter.value.value.id }}"></app-included-in>
         </ng-template>
     </div>
 </div>
