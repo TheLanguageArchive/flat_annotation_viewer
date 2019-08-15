@@ -29,6 +29,29 @@ function flat_annotation_viewer_theme($existing, $type, $theme, $path) {
 }
 
 function flat_annotation_viewer() {
+
+    $module_path = drupal_get_path('module', 'flat_annotation_viewer');
+
+    drupal_add_css($module_path . '/annotation-viewer/dist/annotation-viewer/styles.css');
+
+    drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/runtime-es2015.js', ['scope' => 'footer']);
+    drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/polyfills-es2015.js', ['scope' => 'footer']);
+
+    drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/runtime-es5.js', ['scope' => 'footer']);
+    drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/polyfills-es5.js', ['scope' => 'footer']);
+
+    drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/main-es2015.js', ['scope' => 'footer']);
+    drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/main-es5.js', ['scope' => 'footer']);
+
+    drupal_add_html_head([
+
+        '#tag'        => 'base',
+        '#attributes' => [
+            'href' => '/' . request_uri(),
+        ],
+
+    ], 'annotation_viewer');
+
     return theme('flat_annotation_viewer');
 }
 
