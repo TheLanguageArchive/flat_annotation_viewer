@@ -11,7 +11,7 @@ import { SerializeEaf } from '@fav-models/serializers/eaf';
 })
 export class EafService {
 
-  private annotationUrl = '/flat/islandora/object/lat:12345_fef5f9f8_6e19_49ac_a605_3b4387bf76d0/av';
+  private annotationUrl = '/flat/islandora/object/lat:12345_fef5f9f8_6e19_49ac_a605_3b4387bf76d0/av_api';
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 

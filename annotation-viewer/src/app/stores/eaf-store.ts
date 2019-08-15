@@ -16,7 +16,7 @@ export class EafStore extends Store<EafState> {
             // getting first tier and annotation
             let tier       = Array.from(eaf.tiers)[0][1].value;
             let annotation = Array.from(tier.annotations)[0][1].value;
-            console.log(eaf);
+
             // and setting initial state
             this.setState({
                 ...this.state,

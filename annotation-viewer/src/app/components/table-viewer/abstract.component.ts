@@ -5,7 +5,7 @@ import { EafTimeslot } from '@fav-models/eaf/timeslot';
 
 export class AbstractComponent implements OnInit {
 
-  constructor(private eafStore: EafStore) {}
+  constructor(public eafStore: EafStore) {}
 
   ngOnInit() {
   }

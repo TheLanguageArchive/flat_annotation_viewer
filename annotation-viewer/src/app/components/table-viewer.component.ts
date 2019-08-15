@@ -17,7 +17,7 @@ export class TableViewerComponent implements OnInit {
 
   @ViewChild('videoPlayer', { static: false }) videoPlayer: VideoComponent;
 
-  constructor(private eafStore: EafStore) {}
+  constructor(public eafStore: EafStore) {}
 
   /**
    * NG On Init

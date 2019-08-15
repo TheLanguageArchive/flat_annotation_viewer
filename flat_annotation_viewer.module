@@ -1,11 +1,35 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
-function flat_annotation_viewer() {
+function flat_annotation_viewer_api() {
 
     $parser = new MPI\EAF\Parser(__DIR__ . '/annotations/pear/pear2.eaf');
     $eaf    = $parser->parse();
 
     return drupal_json_output($eaf);
+}
+
+/**
+ * hook_theme implementation
+ *
+ * @param array  $existing
+ * @param string $type
+ * @param string $theme
+ * @param string $path
+ *
+ * @return array
+ */
+function flat_annotation_viewer_theme($existing, $type, $theme, $path) {
+
+    return [
+
+        'flat_annotation_viewer' => [
+            'template' => 'theme/flat-annotation-viewer',
+        ],
+    ];
+}
+
+function flat_annotation_viewer() {
+    return theme('flat_annotation_viewer');
 }
 
 function flat_annotation_viewer_menu() {
@@ -14,11 +38,22 @@ function flat_annotation_viewer_menu() {
 
     $items['islandora/object/%islandora_object/av'] = [
 
-        'title'             => 'FLAT Annotation Viewer',
-        'type'              => MENU_CALLBACK,
-        'page callback'     => 'flat_annotation_viewer',
-        'page arguments'    => [2],
-        'access callback'   => 'flat_annotation_viewer_menu_access',
+        'title'            => 'Annotation',
+        'type'             => MENU_LOCAL_TASK,
+        'page callback'    => 'flat_annotation_viewer',
+        'page arguments'   => [2],
+        'access callback'  => 'flat_annotation_viewer_menu_access',
+        'access arguments' => [2],
+        'weight'           => 100,
+    ];
+
+    $items['islandora/object/%islandora_object/av_api'] = [
+
+        'title'           => 'FLAT Annotation Viewer',
+        'type'            => MENU_CALLBACK,
+        'page callback'   => 'flat_annotation_viewer_api',
+        'page arguments'  => [2],
+        'access callback' => 'flat_annotation_viewer_menu_access',
     ];
 
     return $items;
