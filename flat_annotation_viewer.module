@@ -32,22 +32,21 @@ function flat_annotation_viewer() {
 
     $module_path = drupal_get_path('module', 'flat_annotation_viewer');
 
-    drupal_add_css($module_path . '/annotation-viewer/dist/annotation-viewer/styles.css');
+    drupal_add_css($module_path . '/annotation-viewer/dist/preview/annotation-viewer/styles.css');
+    drupal_add_js($module_path . '/annotation-viewer/dist/preview/annotation-viewer.js', ['scope' => 'footer']);
+    // drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/polyfills-es2015.js', ['scope' => 'footer']);
 
-    drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/runtime-es2015.js', ['scope' => 'footer']);
-    drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/polyfills-es2015.js', ['scope' => 'footer']);
+    // drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/runtime-es5.js', ['scope' => 'footer']);
+    // drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/polyfills-es5.js', ['scope' => 'footer']);
 
-    drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/runtime-es5.js', ['scope' => 'footer']);
-    drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/polyfills-es5.js', ['scope' => 'footer']);
-
-    drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/main-es2015.js', ['scope' => 'footer']);
-    drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/main-es5.js', ['scope' => 'footer']);
+    // drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/main-es2015.js', ['scope' => 'footer']);
+    // drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/main-es5.js', ['scope' => 'footer']);
 
     drupal_add_html_head([
 
         '#tag'        => 'base',
         '#attributes' => [
-            'href' => '/' . request_uri(),
+            'href' => '/flat/islandora/object/lat:12345_1cb151af_2af9_4f6f_a3bd_e8770b81eadf',
         ],
 
     ], 'annotation_viewer');
