@@ -1,1 +1,1 @@
-<app-annotation-viewer></app-annotation-viewer>
+<annotation-viewer></annotation-viewer>

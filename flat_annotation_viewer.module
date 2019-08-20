@@ -1,8 +1,14 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
-function flat_annotation_viewer_api() {
 
-    $parser = new MPI\EAF\Parser(__DIR__ . '/annotations/pear/pear2.eaf');
+function flat_annotation_viewer_api($object) {
+
+    module_load_include('inc', 'flat_annotation_viewer', 'includes/SolrMediaFetcher');
+
+    $solr      = new SolrMediaFetcher();
+    $locations = $solr->fetch($object->id);
+
+    $parser = new MPI\EAF\Parser(__DIR__ . '/annotations/pear/pear2.eaf', new MPI\EAF\Media\MediaResolver($locations));
     $eaf    = $parser->parse();
 
     return drupal_json_output($eaf);
@@ -28,28 +34,13 @@ function flat_annotation_viewer_theme($existing, $type, $theme, $path) {
     ];
 }
 
-function flat_annotation_viewer() {
+/**
+* Implements hook_CMODEL_PID_islandora_view_object().
+*/
+function flat_annotation_viewer_flat_annotation_viewer_islandora_view_object($object, $page_number, $page_size) {
 
     $module_path = drupal_get_path('module', 'flat_annotation_viewer');
-
-    drupal_add_css($module_path . '/annotation-viewer/dist/preview/annotation-viewer/styles.css');
-    drupal_add_js($module_path . '/annotation-viewer/dist/preview/annotation-viewer.js', ['scope' => 'footer']);
-    // drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/polyfills-es2015.js', ['scope' => 'footer']);
-
-    // drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/runtime-es5.js', ['scope' => 'footer']);
-    // drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/polyfills-es5.js', ['scope' => 'footer']);
-
-    // drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/main-es2015.js', ['scope' => 'footer']);
-    // drupal_add_js($module_path . '/annotation-viewer/dist/annotation-viewer/main-es5.js', ['scope' => 'footer']);
-
-    drupal_add_html_head([
-
-        '#tag'        => 'base',
-        '#attributes' => [
-            'href' => '/flat/islandora/object/lat:12345_1cb151af_2af9_4f6f_a3bd_e8770b81eadf',
-        ],
-
-    ], 'annotation_viewer');
+    drupal_add_js($module_path . '/../annotation_viewer/dist/elements/annotation-viewer/annotation-viewer.js', ['scope' => 'footer']);
 
     return theme('flat_annotation_viewer');
 }
@@ -57,17 +48,6 @@ function flat_annotation_viewer() {
 function flat_annotation_viewer_menu() {
 
     $items = [];
-
-    $items['islandora/object/%islandora_object/av'] = [
-
-        'title'            => 'Annotation',
-        'type'             => MENU_LOCAL_TASK,
-        'page callback'    => 'flat_annotation_viewer',
-        'page arguments'   => [2],
-        'access callback'  => 'flat_annotation_viewer_menu_access',
-        'access arguments' => [2],
-        'weight'           => 100,
-    ];
 
     $items['islandora/object/%islandora_object/av_api'] = [
 
@@ -83,4 +63,52 @@ function flat_annotation_viewer_menu() {
 
 function flat_annotation_viewer_menu_access() {
     return true;
+}
+
+/**
+* Implements hook_islandora_required_objects().
+*/
+function flat_annotation_viewer_islandora_required_objects(IslandoraTuque $connection) {
+
+    $modulePath = drupal_get_path('module', 'flat_annotation_viewer');
+
+    // Content Model
+    $contentModel         = $connection->repository->constructObject('flat:annotation_viewer');
+    $contentModel->owner  = 'fedoraAdmin';
+    $contentModel->label  = 'FLAT Annotation Viewer Content Model';
+    $contentModel->models = 'fedora-system:ContentModel-3.0';
+
+    // DS-COMPOSITE-MODEL Datastream
+    $datastream           = $contentModel->constructDatastream('DS-COMPOSITE-MODEL', 'X');
+    $datastream->label    = 'DS-COMPOSITE-MODEL';
+    $datastream->mimetype = 'application/xml';
+    $datastream->setContentFromFile($modulePath . '/xml/ds_composite_model.xml', false);
+    $contentModel->ingestDatastream($datastream);
+
+    // Collection
+    $collection         = $connection->repository->constructObject('flat:annotation_viewer_collection');
+    $collection->owner  = 'fedoraAdmin';
+    $collection->label  = 'FLAT Annotation Viewer Collection';
+    $collection->models = 'islandora:collectionCModel';
+    $collection->relationships->add(FEDORA_RELS_EXT_URI, 'isMemberOfCollection', 'islandora:root');
+
+    // Collection Policy
+    $datastream           = $collection->constructDatastream('COLLECTION_POLICY', 'X');
+    $datastream->label    = 'Collection policy';
+    $datastream->mimetype = 'application/xml';
+    $datastream->setContentFromFile($modulePath . '/xml/collection_policy.xml', false);
+    $collection->ingestDatastream($datastream);
+
+    return [
+
+        'flat_annotation_viewer' => [
+
+            'title'   => 'FLAT Annotation Viewer',
+            'objects' => [
+
+                $contentModel,
+                $collection,
+            ],
+        ],
+    ];
 }

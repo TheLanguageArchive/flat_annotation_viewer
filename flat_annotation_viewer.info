@@ -1,6 +1,5 @@
 name = "Flat Annotation Viewer"
 description = "A FLAT module to display annotations"
-dependencies[] = flat_deposit
 package = FLAT
 core = 7.x
 version = 7.x-0.1-dev

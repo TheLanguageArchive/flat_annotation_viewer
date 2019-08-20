@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/TheLanguageArchive/EAF-parser.git",
-                "reference": "04412d076f212087d832b05b064aff591b092893"
+                "reference": "a284fe528cdd2bfacd2533fc7f800890dbfd764c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TheLanguageArchive/EAF-parser/zipball/04412d076f212087d832b05b064aff591b092893",
-                "reference": "04412d076f212087d832b05b064aff591b092893",
+                "url": "https://api.github.com/repos/TheLanguageArchive/EAF-parser/zipball/a284fe528cdd2bfacd2533fc7f800890dbfd764c",
+                "reference": "a284fe528cdd2bfacd2533fc7f800890dbfd764c",
                 "shasum": ""
             },
             "require": {
@@ -47,7 +47,7 @@
                 "source": "https://github.com/TheLanguageArchive/EAF-parser/tree/master",
                 "issues": "https://github.com/TheLanguageArchive/EAF-parser/issues"
             },
-            "time": "2019-08-13T16:35:01+00:00"
+            "time": "2019-08-20T12:30:27+00:00"
         },
         {
             "name": "php-ds/php-ds",

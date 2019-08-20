@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Install hooks for this module.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * @see flat_annotation_viewer_islandora_required_objects()
+ */
+function flat_annotation_viewer_install() {
+  module_load_include('inc', 'islandora', 'includes/solution_packs');
+  islandora_install_solution_pack('flat_annotation_viewer');
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function flat_annotation_viewer_uninstall() {
+  module_load_include('inc', 'islandora', 'includes/solution_packs');
+  islandora_install_solution_pack('flat_annotation_viewer', 'uninstall');
+}
