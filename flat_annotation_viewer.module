@@ -8,8 +8,8 @@ function flat_annotation_viewer_api($object) {
     $solr      = new SolrMediaFetcher();
     $locations = $solr->fetch($object->id);
 
-    $parser = new MPI\EAF\Parser(__DIR__ . '/annotations/pear/pear2.eaf', new MPI\EAF\Media\MediaResolver($locations));
-    $eaf    = $parser->parse();
+    $parser    = new TLA\EAF\Parser(__DIR__ . '/annotations/pear/pear2.eaf', new TLA\EAF\Media\MediaResolver($locations));
+    $eaf       = $parser->parse();
 
     return drupal_json_output($eaf);
 }
@@ -39,10 +39,21 @@ function flat_annotation_viewer_theme($existing, $type, $theme, $path) {
 */
 function flat_annotation_viewer_flat_annotation_viewer_islandora_view_object($object, $page_number, $page_size) {
 
-    $module_path = drupal_get_path('module', 'flat_annotation_viewer');
-    drupal_add_js($module_path . '/../annotation_viewer/dist/elements/annotation-viewer/annotation-viewer.js', ['scope' => 'footer']);
+    module_load_include('inc', 'flat_annotation_viewer', 'includes/SolrMediaFetcher');
 
-    return theme('flat_annotation_viewer');
+    $solr      = new SolrMediaFetcher();
+    $parent_id = $solr->getParentPid($object->id);
+
+    $module_path = drupal_get_path('module', 'flat_annotation_viewer');
+    drupal_add_js($module_path . '/../annotation_viewer/dist/annotation-viewer/runtime-es2015.js', ['scope' => 'footer']);
+    drupal_add_js($module_path . '/../annotation_viewer/dist/annotation-viewer/polyfills-es2015.js', ['scope' => 'footer']);
+    drupal_add_js($module_path . '/../annotation_viewer/dist/annotation-viewer/styles-es2015.js', ['scope' => 'footer']);
+    drupal_add_js($module_path . '/../annotation_viewer/dist/annotation-viewer/main-es2015.js', ['scope' => 'footer']);
+    // drupal_add_js($module_path . '/../annotation_viewer/dist/elements/annotation-viewer.js', ['scope' => 'footer']);
+
+    return theme('flat_annotation_viewer', [
+        'id' => $parent_id,
+    ]);
 }
 
 function flat_annotation_viewer_menu() {

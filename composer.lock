@@ -4,51 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3d4ef7ea9bb1b26ecb47f277e5c646b",
+    "content-hash": "d5ff1144305175163a91a336e0acde28",
     "packages": [
-        {
-            "name": "mpi/eaf-parser",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/TheLanguageArchive/EAF-parser.git",
-                "reference": "a284fe528cdd2bfacd2533fc7f800890dbfd764c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/TheLanguageArchive/EAF-parser/zipball/a284fe528cdd2bfacd2533fc7f800890dbfd764c",
-                "reference": "a284fe528cdd2bfacd2533fc7f800890dbfd764c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1.0",
-                "php-ds/php-ds": "dev-master"
-            },
-            "require-dev": {
-                "symfony/var-dumper": "4.4.x-dev"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "MPI\\EAF\\": "src/"
-                }
-            },
-            "license": [
-                "Gnu Public License 2"
-            ],
-            "authors": [
-                {
-                    "name": "Ibrahim Abdullah",
-                    "email": "abdul.ibrahim16@gmail.com"
-                }
-            ],
-            "description": "EAF annotation parser and resolver",
-            "support": {
-                "source": "https://github.com/TheLanguageArchive/EAF-parser/tree/master",
-                "issues": "https://github.com/TheLanguageArchive/EAF-parser/issues"
-            },
-            "time": "2019-08-20T12:30:27+00:00"
-        },
         {
             "name": "php-ds/php-ds",
             "version": "dev-master",
@@ -217,13 +174,56 @@
                 "dump"
             ],
             "time": "2015-11-18T13:48:51+00:00"
+        },
+        {
+            "name": "tla/eaf-parser",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TheLanguageArchive/EAF-parser.git",
+                "reference": "146a9e6bc141b678d68b5e7258fb24852f49f8d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TheLanguageArchive/EAF-parser/zipball/146a9e6bc141b678d68b5e7258fb24852f49f8d5",
+                "reference": "146a9e6bc141b678d68b5e7258fb24852f49f8d5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0",
+                "php-ds/php-ds": "dev-master"
+            },
+            "require-dev": {
+                "symfony/var-dumper": "4.4.x-dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TLA\\EAF\\": "src/"
+                }
+            },
+            "license": [
+                "Gnu Public License 2"
+            ],
+            "authors": [
+                {
+                    "name": "Ibrahim Abdullah",
+                    "email": "abdul.ibrahim16@gmail.com"
+                }
+            ],
+            "description": "EAF annotation parser and resolver",
+            "support": {
+                "source": "https://github.com/TheLanguageArchive/EAF-parser/tree/master",
+                "issues": "https://github.com/TheLanguageArchive/EAF-parser/issues"
+            },
+            "time": "2019-08-21T14:18:42+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "mpi/eaf-parser": 20
+        "tla/eaf-parser": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

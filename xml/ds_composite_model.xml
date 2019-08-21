@@ -15,5 +15,6 @@
   </dsTypeModel>
   <dsTypeModel ID="OBJ" optional="true">
     <form MIME="text/xml"/>
+    <form MIME="text/x-eaf+xml"/>
   </dsTypeModel>
 </dsCompositeModel>

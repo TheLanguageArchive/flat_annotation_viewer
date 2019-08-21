@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@tla/annotation-viewer": "https://github.com/thelanguagearchive/annotation_viewer/tarball/master"
+  }
+}

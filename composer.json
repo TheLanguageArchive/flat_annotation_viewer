@@ -8,6 +8,6 @@
     "minimum-stability": "dev",
     "require": {
         "symfony/var-dumper": "3",
-        "mpi/eaf-parser": "dev-master"
+        "tla/eaf-parser": "dev-master"
     }
 }
