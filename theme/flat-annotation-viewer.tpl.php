@@ -1,1 +1,1 @@
-<annotation-viewer id="<?php echo $id; ?>"></annotation-viewer>
+<annotation-viewer id="<?php echo $annotation_id; ?>"></annotation-viewer>

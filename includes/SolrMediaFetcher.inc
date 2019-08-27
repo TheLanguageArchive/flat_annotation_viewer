@@ -125,7 +125,7 @@ class SolrMediaFetcher
         $items  = [];
 
         foreach ($data['response']['docs'] as $doc) {
-            $items[$doc['fgs_label_s']] = url(format_string('islandora/object/!pid/datastream/OBJ/view', ['!pid' => $doc['PID']]));
+            $items[$doc['fgs_label_s']] = url(format_string('islandora/object/!pid/datastream/MP4/view', ['!pid' => $doc['PID']]));
         }
 
         return $items;

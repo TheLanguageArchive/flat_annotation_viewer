@@ -6,5 +6,4 @@ version = 7.x-0.1-dev
 configure = admin/config/flat_deposit/flat_annotation_viewer
 dependencies[] = flat_deposit
 dependencies[] = islandora
-dependencies[] = islandora_openseadragon
 dependencies[] = islandora_solr
