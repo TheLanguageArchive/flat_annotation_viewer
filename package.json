@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "@tla/annotation-viewer": "https://github.com/thelanguagearchive/annotation_viewer/tarball/2a973bc5ab6dd9df99b1f743f127501097129c00"
+    "@tla/annotation-viewer": "thelanguagearchive/annotation_viewer#1.0.0"
   }
 }

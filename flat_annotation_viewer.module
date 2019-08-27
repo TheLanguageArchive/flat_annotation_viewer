@@ -5,11 +5,11 @@ function flat_annotation_viewer_api($object) {
 
     module_load_include('inc', 'flat_annotation_viewer', 'includes/SolrMediaFetcher');
 
-    $solr      = new SolrMediaFetcher();
-    $locations = $solr->fetch($object->id);
+    $solr = new SolrMediaFetcher();
+    $data = $solr->fetch($object->id);
 
-    $parser    = new TLA\EAF\Parser(__DIR__ . '/annotations/pear/pear2.eaf', new TLA\EAF\Media\MediaResolver($locations));
-    $eaf       = $parser->parse();
+    $parser = new TLA\EAF\Parser($data['annotation'], new TLA\EAF\Media\MediaResolver($data['locations']));
+    $eaf    = $parser->parse();
 
     return drupal_json_output($eaf);
 }

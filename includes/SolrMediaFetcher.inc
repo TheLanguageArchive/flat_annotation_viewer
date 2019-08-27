@@ -122,10 +122,21 @@ class SolrMediaFetcher
     {
         $parent = $this->getParentPid($pid);
         $data   = $this->query($this->childrenQuery($parent), $this->childrenParams($parent));
-        $items  = [];
+        $items  = ['annotation' => null, 'locations' => []];
 
         foreach ($data['response']['docs'] as $doc) {
-            $items[$doc['fgs_label_s']] = url(format_string('islandora/object/!pid/datastream/MP4/view', ['!pid' => $doc['PID']]));
+
+            $models = array_map([$this, 'removeFedoraPrefix'], $doc['RELS_EXT_hasModel_uri_ms']);
+
+            if (in_array('islandora:sp_videoCModel', $models)) {
+                $items['locations'][$doc['fgs_label_s']] = url(format_string('islandora/object/!pid/datastream/MP4/view', ['!pid' => $doc['PID']]));
+            }
+
+            if (in_array('flat:annotation_viewer', $models)) {
+
+                $object = islandora_object_load($doc['PID']);
+                $items['annotation'] = simplexml_load_string($object->getDatastream('OBJ')->content);
+            }
         }
 
         return $items;
@@ -162,7 +173,7 @@ class SolrMediaFetcher
 
             'fq' => [
 
-                // 0 => 'RELS_EXT_hasModel_uri_ms:("info:fedora/islandora:sp_large_image_cmodel" OR "islandora:sp_large_image_cmodel" OR "info:fedora/islandora:sp_basic_image" OR "islandora:sp_basic_image")',
+                0 => 'RELS_EXT_hasModel_uri_ms:("info:fedora/islandora:sp_videoCModel" OR "islandora:sp_videoCModel" OR "info:fedora/flat:annotation_viewer" OR "flat:annotation_viewer")',
                 1 => 'policy_datastream_users_ms:"' . $user->name . '"
                         OR (
                             (*:* -policy_datastream_users_ms:[* TO *]) AND (*:* -policy_datastream_roles_ms:[* TO *])
