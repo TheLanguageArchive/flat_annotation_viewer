@@ -11,7 +11,6 @@ function flat_annotation_viewer_api($object) {
 
     $solr = new SolrMediaFetcher();
     $data = $solr->fetch($object->id);
-    $data['locations']['example.wav'] = '/flat/sites/all/modules/custom/flat_annotation_viewer/annotations/pear/example.wav';
 
     $parser = new TLA\EAF\Parser($data['annotation'], new TLA\EAF\Media\MediaResolver($data['locations']));
     $eaf    = $parser->parse();
