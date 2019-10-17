@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "@tla/annotation-viewer": "thelanguagearchive/annotation_viewer#1.0.0"
+    "@tla/annotation-viewer": "github:thelanguagearchive/annotation_viewer#47a39704376a28c1262881883b4a9ea286f2614b"
   }
 }

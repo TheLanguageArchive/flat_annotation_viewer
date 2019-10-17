@@ -59,12 +59,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "b42a2f66e8f1b15ccf25652c3424265923eb4f17"
+                "reference": "a874bbf9135bd76175baa2c26d14312c9ef25543"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/b42a2f66e8f1b15ccf25652c3424265923eb4f17",
-                "reference": "b42a2f66e8f1b15ccf25652c3424265923eb4f17",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/a874bbf9135bd76175baa2c26d14312c9ef25543",
+                "reference": "a874bbf9135bd76175baa2c26d14312c9ef25543",
                 "shasum": ""
             },
             "require": {
@@ -110,7 +110,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-08-06T08:03:45+00:00"
+            "time": "2019-09-17T10:46:08+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -181,12 +181,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/TheLanguageArchive/EAF-parser.git",
-                "reference": "f2b89f9aada8c44d665b4fcb4d128cba75a665d6"
+                "reference": "419ee07822de4c73a9c0b9a87c3ea1a9049fa8e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TheLanguageArchive/EAF-parser/zipball/f2b89f9aada8c44d665b4fcb4d128cba75a665d6",
-                "reference": "f2b89f9aada8c44d665b4fcb4d128cba75a665d6",
+                "url": "https://api.github.com/repos/TheLanguageArchive/EAF-parser/zipball/419ee07822de4c73a9c0b9a87c3ea1a9049fa8e6",
+                "reference": "419ee07822de4c73a9c0b9a87c3ea1a9049fa8e6",
                 "shasum": ""
             },
             "require": {
@@ -216,7 +216,7 @@
                 "source": "https://github.com/TheLanguageArchive/EAF-parser/tree/master",
                 "issues": "https://github.com/TheLanguageArchive/EAF-parser/issues"
             },
-            "time": "2019-08-27T14:14:08+00:00"
+            "time": "2019-10-15T14:31:46+00:00"
         }
     ],
     "packages-dev": [],

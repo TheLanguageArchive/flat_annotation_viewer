@@ -1,4 +1,8 @@
 <?php
+define('FLAT_ANNOTATION_VIEWER_DEFAULT_SHOW_TIMESTAMPS', 1);
+define('FLAT_ANNOTATION_VIEWER_DEFAULT_WIDTH', 100);
+define('FLAT_ANNOTATION_VIEWER_DEFAULT_HEIGHT', 100);
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 function flat_annotation_viewer_api($object) {
@@ -7,6 +11,7 @@ function flat_annotation_viewer_api($object) {
 
     $solr = new SolrMediaFetcher();
     $data = $solr->fetch($object->id);
+    $data['locations']['example.wav'] = '/flat/sites/all/modules/custom/flat_annotation_viewer/annotations/pear/example.wav';
 
     $parser = new TLA\EAF\Parser($data['annotation'], new TLA\EAF\Media\MediaResolver($data['locations']));
     $eaf    = $parser->parse();
@@ -41,15 +46,20 @@ function flat_annotation_viewer_flat_annotation_viewer_islandora_view_object($ob
 
     module_load_include('inc', 'flat_annotation_viewer', 'includes/SolrMediaFetcher');
 
-    $solr      = new SolrMediaFetcher();
-    $parent_id = $solr->getParentPid($object->id);
+    $solr  = new SolrMediaFetcher();
+    $items = $solr->fetch($object->id);
 
     $module_path = drupal_get_path('module', 'flat_annotation_viewer');
     //drupal_add_js($module_path . '/node_modules/@tla/annotation-viewer/dist/elements/annotation-viewer.js', ['scope' => 'footer']);
     drupal_add_js($module_path . '/js/annotation-viewer.js', ['scope' => 'footer']);
 
     return theme('flat_annotation_viewer', [
-        'annotation_id' => $parent_id,
+
+        'url'             => url('islandora/object/' . $items['pid'] . '/av_api'),
+        'width'           => variable_get('flat_annotation_viewer_width', FLAT_ANNOTATION_VIEWER_DEFAULT_WIDTH),
+        'height'          => variable_get('flat_annotation_viewer_height', FLAT_ANNOTATION_VIEWER_DEFAULT_HEIGHT),
+        'accessible'      => $items['accessible'],
+        'show_timestamps' => variable_get('flat_annotation_viewer_show_timestamps', FLAT_ANNOTATION_VIEWER_DEFAULT_SHOW_TIMESTAMPS),
     ]);
 }
 
@@ -64,6 +74,16 @@ function flat_annotation_viewer_menu() {
         'page callback'   => 'flat_annotation_viewer_api',
         'page arguments'  => [2],
         'access callback' => 'flat_annotation_viewer_menu_access',
+    ];
+
+    $items['admin/config/flat_deposit/flat_annotation_viewer'] = [
+
+        'title'           => 'Configure FLAT Annotation Viewer',
+        'type'            => MENU_LOCAL_TASK,
+        'page callback'   => 'drupal_get_form',
+        'page arguments'  => ['flat_annotation_viewer_admin_form'],
+        'access callback' => 'flat_annotation_viewer_menu_access',
+        'file'            => 'includes/admin.inc',
     ];
 
     return $items;
@@ -81,9 +101,9 @@ function flat_annotation_viewer_islandora_required_objects(IslandoraTuque $conne
     $modulePath = drupal_get_path('module', 'flat_annotation_viewer');
 
     // Content Model
-    $contentModel         = $connection->repository->constructObject('flat:annotation_viewer');
+    $contentModel         = $connection->repository->constructObject('flat:flat_annotation');
     $contentModel->owner  = 'fedoraAdmin';
-    $contentModel->label  = 'FLAT Annotation Viewer Content Model';
+    $contentModel->label  = 'FLAT Annotation Content Model';
     $contentModel->models = 'fedora-system:ContentModel-3.0';
 
     // DS-COMPOSITE-MODEL Datastream
@@ -94,9 +114,9 @@ function flat_annotation_viewer_islandora_required_objects(IslandoraTuque $conne
     $contentModel->ingestDatastream($datastream);
 
     // Collection
-    $collection         = $connection->repository->constructObject('flat:annotation_viewer_collection');
+    $collection         = $connection->repository->constructObject('flat:flat_annotation_collection');
     $collection->owner  = 'fedoraAdmin';
-    $collection->label  = 'FLAT Annotation Viewer Collection';
+    $collection->label  = 'FLAT Annotation Collection';
     $collection->models = 'islandora:collectionCModel';
     $collection->relationships->add(FEDORA_RELS_EXT_URI, 'isMemberOfCollection', 'islandora:root');
 
@@ -111,7 +131,7 @@ function flat_annotation_viewer_islandora_required_objects(IslandoraTuque $conne
 
         'flat_annotation_viewer' => [
 
-            'title'   => 'FLAT Annotation Viewer',
+            'title'   => 'FLAT Annotation',
             'objects' => [
 
                 $contentModel,

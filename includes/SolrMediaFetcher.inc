@@ -122,19 +122,36 @@ class SolrMediaFetcher
     {
         $parent = $this->getParentPid($pid);
         $data   = $this->query($this->childrenQuery($parent), $this->childrenParams($parent));
-        $items  = ['annotation' => null, 'locations' => []];
+        $items  = ['pid' => $parent, 'accessible' => false, 'locations' => [], 'annotation' => null];
 
         foreach ($data['response']['docs'] as $doc) {
 
             $models = array_map([$this, 'removeFedoraPrefix'], $doc['RELS_EXT_hasModel_uri_ms']);
 
             if (in_array('islandora:sp_videoCModel', $models)) {
-                $items['locations'][$doc['fgs_label_s']] = url(format_string('islandora/object/!pid/datastream/MP4/view', ['!pid' => $doc['PID']]));
+
+                $object     = islandora_object_load($doc['PID']);
+                $datastream = false;
+
+                if (isset($object['OBJ'])/* && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['OBJ'])*/) {
+                    $datastream = 'OBJ';
+                }
+
+                if (isset($object['MP4'])/* && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['MP4'])*/) {
+                    $datastream = 'MP4';
+                }
+
+                if (false !== $datastream) {
+                    $items['locations'][$doc['fgs_label_s']] = url(format_string('islandora/object/!pid/datastream/!datastream/view', ['!pid' => $doc['PID'], '!datastream' => $datastream]));
+                }
             }
 
             if (in_array('flat:annotation_viewer', $models)) {
 
-                $object = islandora_object_load($doc['PID']);
+                $object     = islandora_object_load($doc['PID']);
+                $accessible = islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['OBJ']);
+
+                $items['accessible'] = $accessible;
                 $items['annotation'] = simplexml_load_string($object->getDatastream('OBJ')->content);
             }
         }
