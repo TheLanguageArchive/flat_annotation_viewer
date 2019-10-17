@@ -45,7 +45,7 @@ class SolrMediaFetcher
 
         try {
 
-            $results    = $this->solr->search($query, 0, 1000, $params);
+            $results = $this->solr->search($query, 0, 1000, $params);
 
         } catch (Exception $e) {
 
@@ -134,7 +134,7 @@ class SolrMediaFetcher
                 $datastream = false;
                 $mimetype   = false;
 
-                if (isset($object['OBJ'])/* && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['OBJ'])*/) {
+                if (isset($object['OBJ']) && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['OBJ'])) {
                     $datastream = 'OBJ';
                 }
 
@@ -220,11 +220,18 @@ class SolrMediaFetcher
     {
         global $user;
 
+        $models = [
+
+            '"info:fedora/islandora:sp_videoCModel"', '"islandora:sp_videoCModel"',
+            '"info:fedora/islandora:sp_audioCModel"', '"islandora:sp_audioCModel"',
+            '"info:fedora/flat:annotation_viewer"',   '"flat:annotation_viewer"',
+        ];
+
         $params = [
 
             'fq' => [
 
-                0 => 'RELS_EXT_hasModel_uri_ms:("info:fedora/islandora:sp_videoCModel" OR "islandora:sp_videoCModel" OR "info:fedora/flat:annotation_viewer" OR "flat:annotation_viewer")',
+                0 => 'RELS_EXT_hasModel_uri_ms:(' . implode(' OR ', $models) . ')',
                 1 => 'policy_datastream_users_ms:"' . $user->name . '"
                         OR (
                             (*:* -policy_datastream_users_ms:[* TO *]) AND (*:* -policy_datastream_roles_ms:[* TO *])
