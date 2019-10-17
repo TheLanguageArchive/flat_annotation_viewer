@@ -146,6 +146,24 @@ class SolrMediaFetcher
                 }
             }
 
+            if (in_array('islandora:sp_audioCModel', $models)) {
+
+                $object     = islandora_object_load($doc['PID']);
+                $datastream = false;
+
+                if (isset($object['OBJ']) && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['OBJ'])) {
+                    $datastream = 'OBJ';
+                }
+
+                if (isset($object['MP3']) && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['MP3'])) {
+                    $datastream = 'MP3';
+                }
+
+                if (false !== $datastream) {
+                    $items['locations'][$doc['fgs_label_s']] = url(format_string('islandora/object/!pid/datastream/!datastream/view', ['!pid' => $doc['PID'], '!datastream' => $datastream]));
+                }
+            }
+
             if (in_array('flat:annotation_viewer', $models)) {
 
                 $object     = islandora_object_load($doc['PID']);
