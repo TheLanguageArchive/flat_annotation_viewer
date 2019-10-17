@@ -154,7 +154,7 @@ class SolrMediaFetcher
                 }
             }
 
-            if (in_array('islandora:sp_audioCModel', $models)) {
+            if (in_array('islandora:sp-audioCModel', $models)) {
 
                 $object     = islandora_object_load($doc['PID']);
                 $datastream = false;
@@ -223,7 +223,7 @@ class SolrMediaFetcher
         $models = [
 
             '"info:fedora/islandora:sp_videoCModel"', '"islandora:sp_videoCModel"',
-            '"info:fedora/islandora:sp_audioCModel"', '"islandora:sp_audioCModel"',
+            '"info:fedora/islandora:sp-audioCModel"', '"islandora:sp-audioCModel"',
             '"info:fedora/flat:annotation_viewer"',   '"flat:annotation_viewer"',
         ];
 
