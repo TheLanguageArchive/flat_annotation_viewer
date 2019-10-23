@@ -127,56 +127,51 @@ class SolrMediaFetcher
         foreach ($data['response']['docs'] as $doc) {
 
             $models = array_map([$this, 'removeFedoraPrefix'], $doc['RELS_EXT_hasModel_uri_ms']);
+            $types  = [
 
-            if (in_array('islandora:sp_videoCModel', $models)) {
+                [
+                    'model'      => 'islandora:sp_videoCModel',
+                    'datastream' => 'MP4',
+                    'mimetype'   => 'video/mp4',
+                ],
+                [
+                    'model'      => 'islandora:sp-audioCModel',
+                    'datastream' => 'MP3',
+                    'mimetype'   => 'audio/mp3',
+                ],
+                [
+                    'model'      => 'islandora:sp-audioCModel',
+                    'datastream' => 'PROXY_MP3',
+                    'mimetype'   => 'audio/mp3',
+                ],
+            ];
 
-                $object     = islandora_object_load($doc['PID']);
-                $datastream = false;
-                $mimetype   = false;
+            foreach ($types as $type) {
 
-                if (isset($object['OBJ']) && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['OBJ'])) {
-                    $datastream = 'OBJ';
-                }
+                if (in_array($type['model'], $models)) {
 
-                if (isset($object['MP4']) && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['MP4'])) {
+                    $object     = islandora_object_load($doc['PID']);
+                    $datastream = false;
+                    $mimetype   = false;
 
-                    $datastream = 'MP4';
-                    $mimetype   = 'video/mp4';
-                }
+                    if (isset($object['OBJ']) && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['OBJ'])) {
+                        $datastream = 'OBJ';
+                    }
 
-                if (false !== $datastream) {
+                    if (isset($object[$type['datastream']]) && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object[$type['datastream']])) {
 
-                    $items['locations'][$doc['fgs_label_s']] = [
+                        $datastream = $type['datastream'];
+                        $mimetype   = $type['mimetype'];
+                    }
 
-                        'mimetype' => $mimetype,
-                        'url'      => url(format_string('islandora/object/!pid/datastream/!datastream/view', ['!pid' => $doc['PID'], '!datastream' => $datastream])),
-                    ];
-                }
-            }
+                    if (false !== $datastream) {
 
-            if (in_array('islandora:sp-audioCModel', $models)) {
+                        $items['locations'][$doc['fgs_label_s']] = [
 
-                $object     = islandora_object_load($doc['PID']);
-                $datastream = false;
-                $mimetype   = false;
-
-                if (isset($object['OBJ']) && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['OBJ'])) {
-                    $datastream = 'OBJ';
-                }
-
-                if (isset($object['MP3']) && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['MP3'])) {
-
-                    $datastream = 'MP3';
-                    $mimetype   = 'audio/mp3';
-                }
-
-                if (false !== $datastream) {
-
-                    $items['locations'][$doc['fgs_label_s']] = [
-
-                        'mimetype' => $mimetype,
-                        'url'      => url(format_string('islandora/object/!pid/datastream/!datastream/view', ['!pid' => $doc['PID'], '!datastream' => $datastream])),
-                    ];
+                            'mimetype' => $mimetype,
+                            'url'      => url(format_string('islandora/object/!pid/datastream/!datastream/view', ['!pid' => $doc['PID'], '!datastream' => $datastream])),
+                        ];
+                    }
                 }
             }
 
