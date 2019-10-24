@@ -4,8 +4,8 @@
   <content_models>
     <content_model dsid="" name="Islandora Compound Object Content Model" namespace="islandora:1"
             pid="islandora:compoundCModel"/>
-    <content_model dsid="" name="FLAT Annotation Viewer Object Content Model" namespace="islandora:1"
-            pid="flat:annotation_viewer"/>
+    <content_model dsid="" name="FLAT Annotation Object Content Model" namespace="islandora:1"
+            pid="flat:annotation"/>
   </content_models>
   <search_terms/>
   <relationship>isMemberOfCollection</relationship>

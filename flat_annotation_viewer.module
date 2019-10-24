@@ -41,7 +41,7 @@ function flat_annotation_viewer_theme($existing, $type, $theme, $path) {
 /**
 * Implements hook_CMODEL_PID_islandora_view_object().
 */
-function flat_annotation_viewer_flat_annotation_viewer_islandora_view_object($object, $page_number, $page_size) {
+function flat_annotation_viewer_flat_annotation_islandora_view_object($object, $page_number, $page_size) {
 
     module_load_include('inc', 'flat_annotation_viewer', 'includes/SolrMediaFetcher');
 
@@ -100,7 +100,7 @@ function flat_annotation_viewer_islandora_required_objects(IslandoraTuque $conne
     $modulePath = drupal_get_path('module', 'flat_annotation_viewer');
 
     // Content Model
-    $contentModel         = $connection->repository->constructObject('flat:flat_annotation');
+    $contentModel         = $connection->repository->constructObject('flat:annotation');
     $contentModel->owner  = 'fedoraAdmin';
     $contentModel->label  = 'FLAT Annotation Content Model';
     $contentModel->models = 'fedora-system:ContentModel-3.0';
@@ -113,7 +113,7 @@ function flat_annotation_viewer_islandora_required_objects(IslandoraTuque $conne
     $contentModel->ingestDatastream($datastream);
 
     // Collection
-    $collection         = $connection->repository->constructObject('flat:flat_annotation_collection');
+    $collection         = $connection->repository->constructObject('flat:annotation_collection');
     $collection->owner  = 'fedoraAdmin';
     $collection->label  = 'FLAT Annotation Collection';
     $collection->models = 'islandora:collectionCModel';

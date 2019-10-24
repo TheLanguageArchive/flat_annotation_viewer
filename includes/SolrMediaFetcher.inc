@@ -175,7 +175,7 @@ class SolrMediaFetcher
                 }
             }
 
-            if (in_array('flat:annotation_viewer', $models)) {
+            if (in_array('flat:annotation', $models)) {
 
                 $object     = islandora_object_load($doc['PID']);
                 $accessible = islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['OBJ']);
@@ -219,7 +219,7 @@ class SolrMediaFetcher
 
             '"info:fedora/islandora:sp_videoCModel"', '"islandora:sp_videoCModel"',
             '"info:fedora/islandora:sp-audioCModel"', '"islandora:sp-audioCModel"',
-            '"info:fedora/flat:annotation_viewer"',   '"flat:annotation_viewer"',
+            '"info:fedora/flat:annotation"',   '"flat:annotation"',
         ];
 
         $params = [
