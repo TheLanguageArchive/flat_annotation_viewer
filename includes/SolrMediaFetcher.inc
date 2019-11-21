@@ -123,25 +123,25 @@ class SolrMediaFetcher
         $parent = $this->getParentPid($pid);
         $data   = $this->query($this->childrenQuery($parent), $this->childrenParams($parent));
         $items  = ['pid' => $parent, 'accessible' => false, 'locations' => [], 'annotation' => null];
+        $types  = [
+
+            [
+                'model'        => 'islandora:sp_videoCModel',
+                'datastream'   => 'MP4',
+                'mimetype'     => 'video/mp4',
+                'obj_mimetype' => 'video/mp4',
+            ],
+            [
+                'model'        => 'islandora:sp-audioCModel',
+                'datastream'   => 'PROXY_MP3',
+                'mimetype'     => 'audio/mp3',
+                'obj_mimetype' => 'audio/mpeg',
+            ],
+        ];
 
         foreach ($data['response']['docs'] as $doc) {
 
             $models = array_map([$this, 'removeFedoraPrefix'], $doc['RELS_EXT_hasModel_uri_ms']);
-            $types  = [
-
-                [
-                    'model'        => 'islandora:sp_videoCModel',
-                    'datastream'   => 'MP4',
-                    'mimetype'     => 'video/mp4',
-                    'obj_mimetype' => 'video/mp4',
-                ],
-                [
-                    'model'        => 'islandora:sp-audioCModel',
-                    'datastream'   => 'PROXY_MP3',
-                    'mimetype'     => 'audio/mp3',
-                    'obj_mimetype' => 'audio/mpeg',
-                ],
-            ];
 
             foreach ($types as $type) {
 
