@@ -181,12 +181,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/TheLanguageArchive/EAF-parser.git",
-                "reference": "5c61453384d28adc9f66462df537f7bb4a84d11a"
+                "reference": "fdf2ac6d9bc39bc9c1ef2185a9193c2d47fdf844"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TheLanguageArchive/EAF-parser/zipball/5c61453384d28adc9f66462df537f7bb4a84d11a",
-                "reference": "5c61453384d28adc9f66462df537f7bb4a84d11a",
+                "url": "https://api.github.com/repos/TheLanguageArchive/EAF-parser/zipball/fdf2ac6d9bc39bc9c1ef2185a9193c2d47fdf844",
+                "reference": "fdf2ac6d9bc39bc9c1ef2185a9193c2d47fdf844",
                 "shasum": ""
             },
             "require": {
@@ -216,7 +216,7 @@
                 "source": "https://github.com/TheLanguageArchive/EAF-parser/tree/master",
                 "issues": "https://github.com/TheLanguageArchive/EAF-parser/issues"
             },
-            "time": "2019-11-20T15:36:27+00:00"
+            "time": "2019-11-27T13:55:52+00:00"
         }
     ],
     "packages-dev": [],
