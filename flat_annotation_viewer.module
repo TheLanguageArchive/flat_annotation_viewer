@@ -52,7 +52,6 @@ function flat_annotation_viewer_flat_annotation_islandora_view_object($object, $
     $items = $solr->fetch($object->id);
 
     $module_path = drupal_get_path('module', 'flat_annotation_viewer');
-    //drupal_add_js($module_path . '/node_modules/@tla/annotation-viewer/dist/elements/annotation-viewer.js', ['scope' => 'footer']);
     drupal_add_js($module_path . '/js/annotation-viewer.js', ['scope' => 'footer']);
 
     return theme('flat_annotation_viewer', [
