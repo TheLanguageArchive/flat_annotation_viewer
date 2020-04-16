@@ -1,6 +1,6 @@
 <?php
 use TLA\EAF\Parser;
-use TLA\EAF\Media\Resolver;
+use TLA\EAF\Resolver\MediaResolver;
 
 define('FLAT_ANNOTATION_VIEWER_DEFAULT_SHOW_TIMESTAMPS', 1);
 define('FLAT_ANNOTATION_VIEWER_DEFAULT_WIDTH', 100);
@@ -15,7 +15,7 @@ function flat_annotation_viewer_api($object) {
     $solr = new SolrMediaFetcher();
     $data = $solr->fetch($object->id);
 
-    $parser = new Parser($data['annotation'], new Resolver($data['locations']));
+    $parser = new Parser($data['annotation'], new MediaResolver($data['locations']));
     $eaf    = $parser->parse();
 
     return drupal_json_output($eaf);
