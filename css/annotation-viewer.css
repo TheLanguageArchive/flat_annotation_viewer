@@ -1,0 +1,38 @@
+annotation-viewer {
+	width: 100%;
+}
+
+annotation-viewer .table-viewer {
+	background-color: #ededed;
+	border: 1px solid #dddddd;
+	margin-top: -1px;
+	font-weight: bold;
+	padding-left: 5px;
+	grid-template-columns: 40px 1fr 110px 110px 110px;
+}
+
+annotation-viewer .table-viewer.annotation {
+	background-color: white;
+	font-weight: normal;
+}
+
+annotation-viewer .table-viewer.annotation:hover {
+        background-color: #ededed;
+}
+
+annotation-viewer .table-viewer.active {
+	background-color: #008cba!important;
+}
+
+annotation-viewer video {
+	background-color: black;
+	height: 330px;
+}
+
+annotation-viewer select.tier-names {
+	margin-bottom:7px;
+}
+
+app-table-viewer div div:nth-type-of(2n) div {
+	background-color: #eeeeee;
+}

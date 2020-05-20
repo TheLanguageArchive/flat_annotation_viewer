@@ -47,6 +47,8 @@ function flat_annotation_viewer_theme($existing, $type, $theme, $path) {
 function flat_annotation_viewer_flat_annotation_islandora_view_object($object, $page_number, $page_size) {
 
     $module_path = drupal_get_path('module', 'flat_annotation_viewer');
+
+    drupal_add_css($module_path . '/css/annotation-viewer.css');
     drupal_add_js($module_path . '/js/annotation-viewer.js.gz', ['scope' => 'footer']);
 
     return theme('flat_annotation_viewer', flat_annotation_viewer_data($object));
@@ -66,8 +68,9 @@ function flat_annotation_viewer_embed($object) {
     // extracting annotation viewer data into current scope
     extract(flat_annotation_viewer_data($object), EXTR_SKIP);
 
-    // adding annotation viewer js
-     $annotation_viewer_js = base_path() . $module_path . '/js/annotation-viewer.js.gz';
+    // adding annotation viewer assets
+     $annotation_viewer_js  = base_path() . $module_path . '/js/annotation-viewer.js.gz';
+     $annotation_viewer_css = base_path() . $module_path . '/css/annotation-viewer.css';
 
     // Start output buffering
     ob_start();
