@@ -46,27 +46,70 @@ function flat_annotation_viewer_theme($existing, $type, $theme, $path) {
 */
 function flat_annotation_viewer_flat_annotation_islandora_view_object($object, $page_number, $page_size) {
 
+    $module_path = drupal_get_path('module', 'flat_annotation_viewer');
+    drupal_add_js($module_path . '/js/annotation-viewer.js.gz', ['scope' => 'footer']);
+
+    return theme('flat_annotation_viewer', flat_annotation_viewer_data($object));
+}
+
+/**
+ * Embeddable version of the annotation viewer
+ *
+ * @param AbstractObject $object
+ * @return string
+ */
+function flat_annotation_viewer_embed($object) {
+
+    $module_path = drupal_get_path('module', 'flat_annotation_viewer');
+    $template    = DRUPAL_ROOT . '/' . $module_path . '/theme/flat-annotation-viewer-embed.tpl.php';
+
+    // extracting annotation viewer data into current scope
+    extract(flat_annotation_viewer_data($object), EXTR_SKIP);
+
+    // adding annotation viewer js
+     $annotation_viewer_js = base_path() . $module_path . '/js/annotation-viewer.js.gz';
+
+    // Start output buffering
+    ob_start();
+
+    // Include the template file
+    include $template;
+
+    // End buffering and return its contents
+    echo ob_get_clean();
+    exit;
+}
+
+function flat_annotation_viewer_data($object) {
+
     module_load_include('inc', 'flat_annotation_viewer', 'includes/SolrMediaFetcher');
 
     $solr  = new SolrMediaFetcher();
     $items = $solr->fetch($object->id);
 
-    $module_path = drupal_get_path('module', 'flat_annotation_viewer');
-    drupal_add_js($module_path . '/js/annotation-viewer.js.gz', ['scope' => 'footer']);
-
-    return theme('flat_annotation_viewer', [
+    return [
 
         'url'             => url('islandora/object/' . $items['pid'] . '/av_api'),
+        'title'           => $object->label,
         'width'           => variable_get('flat_annotation_viewer_width', FLAT_ANNOTATION_VIEWER_DEFAULT_WIDTH),
         'height'          => variable_get('flat_annotation_viewer_height', FLAT_ANNOTATION_VIEWER_DEFAULT_HEIGHT),
         'accessible'      => $items['accessible'],
         'show_timestamps' => variable_get('flat_annotation_viewer_show_timestamps', FLAT_ANNOTATION_VIEWER_DEFAULT_SHOW_TIMESTAMPS),
-    ]);
+    ];
 }
 
 function flat_annotation_viewer_menu() {
 
     $items = [];
+
+    $items['islandora/object/%islandora_object/embed'] = [
+
+        'title'           => 'FLAT Annotation Viewer embed',
+        'type'            => MENU_CALLBACK,
+        'page callback'   => 'flat_annotation_viewer_embed',
+        'page arguments'  => [2],
+        'access callback' => 'flat_annotation_viewer_menu_access',
+    ];
 
     $items['islandora/object/%islandora_object/av_api'] = [
 
