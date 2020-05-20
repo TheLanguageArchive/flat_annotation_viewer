@@ -1,5 +1,7 @@
 annotation-viewer {
+
 	width: 100%;
+	font-family: "Helvetica Neue", "Lucida Grande", "Arial Unicode MS", Helvetica, Arial, sans-serif;
 }
 
 annotation-viewer .table-viewer {
