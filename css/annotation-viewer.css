@@ -1,3 +1,8 @@
+html.embedded-fav, body.embedded-fav {
+	margin: 0;
+	padding: 0;
+}
+
 annotation-viewer {
 
 	width: 100%;
