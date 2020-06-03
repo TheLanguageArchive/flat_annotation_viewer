@@ -7,64 +7,17 @@
     "content-hash": "e19a4f4922d991be7280515dcd9748d4",
     "packages": [
         {
-            "name": "php-ds/php-ds",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-ds/polyfill.git",
-                "reference": "f6fd4ca9c16ca7c1bd9f3a95c9d95a827ccf702f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-ds/polyfill/zipball/f6fd4ca9c16ca7c1bd9f3a95c9d95a827ccf702f",
-                "reference": "f6fd4ca9c16ca7c1bd9f3a95c9d95a827ccf702f",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0.0"
-            },
-            "require-dev": {
-                "php-ds/tests": "^1.2"
-            },
-            "suggest": {
-                "ext-ds": "to improve performance and reduce memory usage"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Ds\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rudi Theunissen",
-                    "email": "rudolf.theunissen@gmail.com"
-                }
-            ],
-            "keywords": [
-                "data structures",
-                "ds",
-                "php",
-                "polyfill"
-            ],
-            "time": "2019-12-28T00:09:45+00:00"
-        },
-        {
             "name": "symfony/polyfill-mbstring",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "81ffd3a9c6d707be22e3012b827de1c9775fc5ac"
+                "reference": "fa79b11539418b02fc5e1897267673ba2c19419c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/81ffd3a9c6d707be22e3012b827de1c9775fc5ac",
-                "reference": "81ffd3a9c6d707be22e3012b827de1c9775fc5ac",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/fa79b11539418b02fc5e1897267673ba2c19419c",
+                "reference": "fa79b11539418b02fc5e1897267673ba2c19419c",
                 "shasum": ""
             },
             "require": {
@@ -76,7 +29,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.15-dev"
+                    "dev-master": "1.17-dev"
                 }
             },
             "autoload": {
@@ -124,7 +77,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-03-09T19:04:49+00:00"
+            "time": "2020-05-12T16:47:27+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
@@ -132,12 +85,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php72.git",
-                "reference": "37b0976c78b94856543260ce09b460a7bc852747"
+                "reference": "f048e612a3905f34931127360bdd2def19a5e582"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/37b0976c78b94856543260ce09b460a7bc852747",
-                "reference": "37b0976c78b94856543260ce09b460a7bc852747",
+                "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/f048e612a3905f34931127360bdd2def19a5e582",
+                "reference": "f048e612a3905f34931127360bdd2def19a5e582",
                 "shasum": ""
             },
             "require": {
@@ -146,7 +99,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.15-dev"
+                    "dev-master": "1.17-dev"
                 }
             },
             "autoload": {
@@ -179,7 +132,21 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-02-27T09:26:54+00:00"
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-05-12T16:47:27+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -256,12 +223,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/TheLanguageArchive/EAF-parser.git",
-                "reference": "e5c0c09d8c8d4ea633a05c0f9f3ac10d0d7265a2"
+                "reference": "9a7bb9112b7ebadee41c9fe64caa0fd2efe82034"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TheLanguageArchive/EAF-parser/zipball/e5c0c09d8c8d4ea633a05c0f9f3ac10d0d7265a2",
-                "reference": "e5c0c09d8c8d4ea633a05c0f9f3ac10d0d7265a2",
+                "url": "https://api.github.com/repos/TheLanguageArchive/EAF-parser/zipball/9a7bb9112b7ebadee41c9fe64caa0fd2efe82034",
+                "reference": "9a7bb9112b7ebadee41c9fe64caa0fd2efe82034",
                 "shasum": ""
             },
             "require": {
@@ -290,7 +257,7 @@
                 "source": "https://github.com/TheLanguageArchive/EAF-parser/tree/master",
                 "issues": "https://github.com/TheLanguageArchive/EAF-parser/issues"
             },
-            "time": "2020-04-17T10:43:28+00:00"
+            "time": "2020-06-03T13:05:15+00:00"
         }
     ],
     "packages-dev": [],
