@@ -129,13 +129,13 @@ class SolrMediaFetcher
                 'model'        => 'islandora:sp_videoCModel',
                 'datastream'   => 'MP4',
                 'mimetype'     => 'video/mp4',
-                'obj_mimetype' => 'video/mp4',
+                'obj_mimetype' => 'video',
             ],
             [
                 'model'        => 'islandora:sp-audioCModel',
                 'datastream'   => 'PROXY_MP3',
                 'mimetype'     => 'audio/mp3',
-                'obj_mimetype' => 'audio/mpeg',
+                'obj_mimetype' => 'audio',
             ],
         ];
 
@@ -151,8 +151,10 @@ class SolrMediaFetcher
                     $datastream = false;
                     $mimetype   = false;
 
-                    if (isset($object['OBJ']) && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['OBJ']) && $object['OBJ']->mimetype === $type['obj_mimetype']) {
+                    if (isset($object['OBJ']) && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['OBJ']) && explode($object['OBJ']->mimetype, '/')[0] === $type['obj_mimetype']) {
+
                         $datastream = 'OBJ';
+                        $mimetype   = $object['OBJ']->mimetype;
                     }
 
                     if (isset($object[$type['datastream']]) && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object[$type['datastream']])) {
