@@ -15,10 +15,18 @@ function flat_annotation_viewer_api($object) {
     $solr = new SolrMediaFetcher();
     $data = $solr->fetch($object->id);
 
-    $parser = new Parser($data['annotation'], new MediaResolver($data['locations']));
-    $eaf    = $parser->parse();
+    try {
 
-    return drupal_json_output($eaf);
+        $parser = new Parser($data['annotation'], new MediaResolver($data['locations']));
+        $eaf    = $parser->parse();
+
+        return drupal_json_output($eaf);
+
+    } catch (Exception $e) {
+
+        drupal_add_http_header('Status', 500);
+        return drupal_json_output();
+    }
 }
 
 /**
