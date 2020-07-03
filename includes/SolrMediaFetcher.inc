@@ -151,8 +151,8 @@ class SolrMediaFetcher
                     $datastream = false;
                     $mimetype   = false;
 
-                    if (isset($object['OBJ']) && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['OBJ']) && (explode('/', $object['OBJ']->mimetype)[0] === $type['obj_mimetype'])) {
-
+                    if (isset($object['OBJ']) && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['OBJ']) && ($object['OBJ']->mimetype === $type['mimetype'])) {
+                        
                         $datastream = 'OBJ';
                         $mimetype   = $type['mimetype'];
                     }
