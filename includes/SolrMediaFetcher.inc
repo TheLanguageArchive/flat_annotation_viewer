@@ -122,7 +122,7 @@ class SolrMediaFetcher
     {
         $parent = $this->getParentPid($pid);
         $data   = $this->query($this->childrenQuery($parent), $this->childrenParams($parent));
-        $items  = ['pid' => $parent, 'accessible' => false, 'locations' => [], 'annotation' => null];
+        $items  = ['pid' => $pid, 'accessible' => false, 'locations' => [], 'annotation' => null];
         $types  = [
 
             [
@@ -152,7 +152,7 @@ class SolrMediaFetcher
                     $mimetype   = false;
 
                     if (isset($object['OBJ']) && islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['OBJ']) && ($object['OBJ']->mimetype === $type['mimetype'])) {
-                        
+
                         $datastream = 'OBJ';
                         $mimetype   = $type['mimetype'];
                     }
@@ -176,11 +176,14 @@ class SolrMediaFetcher
 
             if (in_array('flat:annotation', $models)) {
 
-                $object     = islandora_object_load($doc['PID']);
-                $accessible = islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['OBJ']);
+                if ($pid == $doc['PID']) {
 
-                $items['accessible'] = $accessible;
-                $items['annotation'] = simplexml_load_string($object->getDatastream('OBJ')->content);
+                    $object     = islandora_object_load($doc['PID']);
+                    $accessible = islandora_datastream_access(ISLANDORA_VIEW_OBJECTS, $object['OBJ']);
+
+                    $items['accessible'] = $accessible;
+                    $items['annotation'] = simplexml_load_string($object->getDatastream('OBJ')->content);
+                }
             }
         }
 
